@@ -7,8 +7,8 @@ tag is pushed on `main`, in two jobs:
   and bytecode boundaries, and hands the unsigned APK to the next job.
 - **release** runs only the Android SDK tools and this repository's scripts, in the `release`
   environment that holds the key: it checks the APK, signs it, checks the signature and drafts a GitHub
-  Release. A maintainer approves the job before it starts, reads the draft, writes what's new and
-  publishes it.
+  Release. A maintainer approves the job before it starts, reads the draft (its "What's new" comes from
+  `CHANGELOG.md`) and publishes it.
 
 ## Once: the signing key
 
@@ -80,7 +80,8 @@ Publish it in the README ("Install"), so users can check what they install.
    then signs it and checks the signature: one signer, the release certificate (`RELEASE_CERT_SHA256`),
    subject `CN=ENGWE Speed Tool`, never the public test key.
 5. Read the draft release: the APK, `SHA256SUMS`, and notes with the legal and safety text from
-   `SAFETY.md` word for word (the firmware caveat included). Replace the "What's new" placeholder, then
+   `SAFETY.md` word for word (the firmware caveat included), and "What's new" from the version's section of
+   `CHANGELOG.md` (a placeholder there means the section is missing: fix it before publishing). Then
    publish.
 
 A failed run creates no release. Fix the cause in a pull request, then delete the tag (`git push origin
