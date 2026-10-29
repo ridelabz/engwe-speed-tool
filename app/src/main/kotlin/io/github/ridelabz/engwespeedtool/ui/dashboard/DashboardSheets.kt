@@ -63,7 +63,7 @@ internal fun InfoSheet(
     }
 }
 
-/** A paragraph of a sheet, with an icon in front where it warns. */
+/** A paragraph of a sheet, with an optional decorative icon in front (tinted [tint], as for a warning). */
 @Composable
 internal fun SheetText(
     text: String,
@@ -91,13 +91,8 @@ internal fun CardInfoSheet(
     when (sheet) {
         DashboardSheet.SPEED -> {
             InfoSheet(stringResource(R.string.speed_title), onDismiss) {
+                // What the card can know, how long a speed lasts, then the warnings.
                 SheetText(stringResource(R.string.speed_cannot_report), R.drawable.ic_info)
-                SheetText(stringResource(R.string.speed_after_reconnect, BIKE_DEFAULT_KMH), R.drawable.ic_history)
-                SheetText(
-                    stringResource(R.string.speed_above_limit_note, LEGAL_LIMIT_KMH),
-                    R.drawable.ic_warning,
-                    caution,
-                )
                 if (state.verified) {
                     SheetText(stringResource(R.string.speed_status_until_off), R.drawable.ic_power_settings_new)
                     // Where the app turns the bike off and on: that counts as switching it off and on.
@@ -107,7 +102,14 @@ internal fun CardInfoSheet(
                             R.drawable.ic_restart_alt,
                         )
                     }
-                } else if (state.checked) {
+                }
+                SheetText(stringResource(R.string.speed_after_reconnect, BIKE_DEFAULT_KMH), R.drawable.ic_history)
+                SheetText(
+                    stringResource(R.string.speed_above_limit_note, LEGAL_LIMIT_KMH),
+                    R.drawable.ic_warning,
+                    caution,
+                )
+                if (!state.verified && state.checked) {
                     SheetText(
                         stringResource(R.string.speed_status_unverified_caveat, BIKE_DEFAULT_KMH),
                         R.drawable.ic_warning,
@@ -213,6 +215,6 @@ internal fun VerificationSheet(
                 caution,
             )
         }
-        SheetText(stringResource(R.string.verification_how))
+        SheetText(stringResource(R.string.verification_how), R.drawable.ic_verified)
     }
 }
