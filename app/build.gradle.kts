@@ -22,7 +22,7 @@ android {
         minSdk = 31
         targetSdk = 37
         // MAJOR.MINOR.PATCH; the version code follows from it (1.2.3 -> 10203), so it only ever grows.
-        versionName = "1.0.0"
+        versionName = "1.0.1"
         versionCode =
             checkNotNull(versionName).let { version ->
                 require(

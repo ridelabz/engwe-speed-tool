@@ -3,6 +3,15 @@
 What changed in each release. Releases are on the
 [Releases](https://github.com/ridelabz/engwe-speed-tool/releases) page, each with its legal and safety text.
 
+## 1.0.1
+
+2026-10-29.
+
+- **Less text on the dashboard:** the speed and assist cards no longer repeat the bike's confirmation in
+  words. The ✓ on the speed's box, and the assist card's bar and heading, show it; screen readers hear the
+  confirmation when it comes. On an untested model, the speed card keeps its note that a speed may not reset
+  when the bike turns off.
+
 ## 1.0.0
 
 The first release, 2026-10-29.

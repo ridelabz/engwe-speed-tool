@@ -6,7 +6,7 @@
 A free, open-source Android app that sets the motor-assistance speed limit of ENGWE e-bikes that use its
 Bluetooth protocol (verified on the E26 3.0 Pro), and shows the bike's readings. **Unofficial:** not made by, endorsed by or affiliated with ENGWE.
 
-**Status:** 1.0.0 is the first release: [Releases](https://github.com/ridelabz/engwe-speed-tool/releases).
+**Status:** 1.0.1 is the latest release: [Releases](https://github.com/ridelabz/engwe-speed-tool/releases).
 
 ## Legal & safety
 
