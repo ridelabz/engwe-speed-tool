@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The window behind the Compose UI: matches the app's surface, so starting the app doesn't flash. -->
+<resources>
+    <style name="Theme.SpeedTool" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+</resources>

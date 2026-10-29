@@ -1,0 +1,77 @@
+name: Something went wrong
+description: An error, a crash, or something that looks wrong in the app.
+title: "[Problem] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The app fills in what it knows. The project is community-supported: there is no individual support.
+        Don't add serial numbers, the bike's Bluetooth address, screenshots of the ENGWE app or photos of the frame: the log has what's needed.
+  - type: textarea
+    id: what_happened
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to make it happen again
+      placeholder: |
+        1.
+        2.
+        3.
+  - type: input
+    id: app_version
+    attributes:
+      label: App version (filled in by the app)
+  - type: input
+    id: android
+    attributes:
+      label: Android version and phone model (filled in by the app)
+  - type: input
+    id: build_tested
+    attributes:
+      label: Build tested
+      description: 'The release version, or "PR #n" for a test build.'
+  - type: input
+    id: model_identity
+    attributes:
+      label: Model identity (filled in by the app)
+  - type: input
+    id: verification
+    attributes:
+      label: Verification shown by the app (filled in by the app)
+  - type: input
+    id: iot_firmware
+    attributes:
+      label: IoT firmware version
+      description: "As the ENGWE app shows it. Type only the version: a screenshot could show more than that."
+  - type: textarea
+    id: app_state
+    attributes:
+      label: What the app showed (filled in by the app)
+  - type: textarea
+    id: errors
+    attributes:
+      label: Recent errors (filled in by the app)
+  - type: upload
+    id: log
+    attributes:
+      label: Session log
+      description: "Attach the session log. The app's report saved it in your phone's Downloads folder (`engwe-speed-tool-DATE-N.log`); or save it from Diagnostics."
+    validations:
+      required: true
+      accept: ".log,.txt,.json"
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Before you send
+      options:
+        - label: I looked at the log's preview before attaching it.
+          required: true

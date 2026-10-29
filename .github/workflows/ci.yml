@@ -1,0 +1,106 @@
+name: CI
+
+# Pull requests merge into main by fast-forward, so main's commits were tested on their pull request: main
+# itself runs once a week (and on demand), with the release build, instead of on every push.
+on:
+  pull_request:
+  schedule:
+    - cron: "41 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash # -eo pipefail
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  jvm:
+    name: JVM modules
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+        with:
+          cache-provider: basic
+          validate-wrappers: true
+      - name: Check
+        run: ./gradlew -PjvmOnly check --console=plain
+      - name: Script tests
+        run: |
+          python3 -m unittest discover -s scripts -p 'test_*.py' -v
+          python3 -m unittest discover -s .github/scripts -p 'test_*.py' -v
+      - name: Only the Bluetooth module may reach Bluetooth GATT
+        run: python3 scripts/check_source_boundaries.py
+      - name: App text comes from string resources
+        run: python3 scripts/check_ui_strings.py
+      - name: Pure-Kotlin modules use only APIs of the oldest supported Android
+        # Compiles their Kotlin main code against the minSdk platform's android.jar instead of the JDK.
+        # Limits: library jars aren't checked (they target Android), and it is stricter than D8 desugaring.
+        run: |
+          for m in protocol session reporting; do
+            if [ -d "$m/src/main/java" ]; then echo "Java sources in $m would bypass the API check"; exit 1; fi
+          done
+          MIN="$(sed -nE 's/^ *minSdk = ([0-9]+)$/\1/p' app/build.gradle.kts | head -1)"
+          test -n "$MIN"
+          JAR="$ANDROID_HOME/platforms/android-$MIN/android.jar"
+          if [ ! -f "$JAR" ]; then
+            # Process substitution: with pipefail, `yes | sdkmanager` fails when yes gets SIGPIPE.
+            "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "platforms;android-$MIN" < <(yes) > /dev/null
+          fi
+          test -f "$JAR"
+          ./gradlew -PjvmOnly -PandroidApiJar="$JAR" :protocol:compileKotlin :session:compileKotlin :reporting:compileKotlin --console=plain
+
+  android:
+    name: Android app
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+        with:
+          cache-provider: basic
+          validate-wrappers: true
+      - name: One Kotlin Gradle plugin version everywhere
+        run: |
+          K="$(sed -nE 's/^kotlin = "(.*)"/\1/p' gradle/libs.versions.toml)"
+          test -n "$K"
+          ./gradlew buildEnvironment --console=plain > build-environment.txt
+          grep -oE 'kotlin-gradle-plugin:[0-9][^ ]*( -> [0-9][^ ]*)?' build-environment.txt | sort -u | tee kgp.txt
+          test -s kgp.txt
+          if grep -vE "(:| -> )${K//./\\.}\$" kgp.txt; then echo "Kotlin Gradle plugin is not $K everywhere"; exit 1; fi
+      - name: Build, lint, licences and unit tests
+        # -Pscreenshots: the screen tests also record screenshots (Robolectric native graphics).
+        run: ./gradlew ktlintAndroidCheck :app:check :ble-android:check :app:assembleDebug -Pscreenshots --console=plain
+      - name: Upload screenshots
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: screenshots
+          path: app/build/outputs/roborazzi/**/*.png
+          retention-days: 5
+          if-no-files-found: error
+      - name: Debug APK manifest
+        run: python3 scripts/check_apk_manifest.py app/build/outputs/apk/debug/*.apk
+      - name: Release build
+        if: github.event_name != 'pull_request'
+        run: |
+          ./gradlew :app:assembleRelease --console=plain
+          python3 scripts/check_apk_manifest.py --release app/build/outputs/apk/release/*.apk

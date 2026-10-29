@@ -1,0 +1,55 @@
+# Maintainer safety review. Mirrors .github/protected-paths.txt; a test keeps the two in step.
+# A path without owners is an exception: bike profile data stays open to contributors.
+
+/.github/** @ridelabz
+**/*.gradle* @ridelabz
+**/gradle.properties @ridelabz
+**/local.properties @ridelabz
+**/.gradle/** @ridelabz
+/gradle/** @ridelabz
+/gradlew* @ridelabz
+/buildSrc/** @ridelabz
+/build-logic/** @ridelabz
+/scripts/** @ridelabz
+/signing/** @ridelabz
+/.gitattributes @ridelabz
+/.gitmodules @ridelabz
+/.editorconfig @ridelabz
+**/.kotlin/** @ridelabz
+**/lint.xml @ridelabz
+**/lint-baseline.xml @ridelabz
+**/*.pro @ridelabz
+**/META-INF/** @ridelabz
+**/src/*/resources/** @ridelabz
+**/*.jar @ridelabz
+**/*.aar @ridelabz
+**/*.so @ridelabz
+**/*.dex @ridelabz
+**/*.apk @ridelabz
+**/*.aidl @ridelabz
+**/jniLibs/** @ridelabz
+**/cpp/** @ridelabz
+**/CMakeLists.txt @ridelabz
+**/AndroidManifest.xml @ridelabz
+**/res/xml*/** @ridelabz
+**/res/mipmap*/** @ridelabz
+**/res/drawable*/ic_launcher* @ridelabz
+**/res/values*/app_name.xml @ridelabz
+**/res/values*/ic_launcher*.xml @ridelabz
+/app/src/prTest/** @ridelabz
+/app/src/main/res/values/test_build.xml @ridelabz
+/app/src/main/kotlin/io/github/ridelabz/engwespeedtool/MainActivity.kt @ridelabz
+/app/src/main/kotlin/io/github/ridelabz/engwespeedtool/TestBuildBanner.kt @ridelabz
+/ble-android/** @ridelabz
+/protocol/** @ridelabz
+/session/** @ridelabz
+/reporting/** @ridelabz
+/app/src/main/kotlin/io/github/ridelabz/engwespeedtool/bike/** @ridelabz
+/LICENSE @ridelabz
+/SAFETY.md @ridelabz
+**/res/values*/legal*.xml @ridelabz
+/app/src/main/kotlin/io/github/ridelabz/engwespeedtool/ui/onboarding/RiskAcceptanceScreen.kt @ridelabz
+/app/src/main/kotlin/io/github/ridelabz/engwespeedtool/ui/onboarding/UnverifiedAcknowledgementScreen.kt @ridelabz
+/app/src/main/kotlin/io/github/ridelabz/engwespeedtool/ui/legal/** @ridelabz
+/protocol/src/main/resources/profiles/*.json
+/protocol/src/main/resources/profiles/index.txt

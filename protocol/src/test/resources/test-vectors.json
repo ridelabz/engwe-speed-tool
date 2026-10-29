@@ -1,0 +1,410 @@
+{
+  "format": 1,
+  "description": "Protocol test vectors from the maintainer's own captures and rides on an ENGWE E26 3.0 Pro with IoT firmware 218CAN. Contains no device or personal identifiers; the identity reply is synthetic.",
+  "privacy_note": "Odometer and ride-time values in status payloads are altered so the vectors don't describe the real bike's mileage; CRCs are recalculated. Everything else is as captured.",
+  "frame_layout": "45 6E | CMD (2, big-endian) | LEN (2, big-endian) | PAYLOAD | CRC-16/MODBUS over CMD+LEN+PAYLOAD, high byte first | 77 65",
+  "crc": [
+    {
+      "ascii": "123456789",
+      "crc16_modbus": "4B37"
+    }
+  ],
+  "commands": [
+    {
+      "name": "speed_limit_16",
+      "frame": "456E2A6500011056237765",
+      "status": "ride-verified: assistance stopped at 16 km/h"
+    },
+    {
+      "name": "speed_limit_25",
+      "frame": "456E2A6500011950E37765",
+      "status": "echoed by the bike; 25 km/h is the default after power-on"
+    },
+    {
+      "name": "speed_limit_32",
+      "frame": "456E2A6500012042237765",
+      "status": "ride-verified: assistance stopped at 32 km/h"
+    },
+    {
+      "name": "speed_limit_45",
+      "frame": "456E2A6500012D87E27765",
+      "status": "ride-verified: assistance continued to about 45 km/h and eased there"
+    },
+    {
+      "name": "lights_on",
+      "frame": "456E05970001FFA4857765",
+      "status": "verified: echoed, status changed, lights seen on"
+    },
+    {
+      "name": "lights_off",
+      "frame": "456E0597000100E4C57765",
+      "status": "verified: echoed, status changed"
+    },
+    {
+      "name": "assist_level_0",
+      "frame": "456E1009000100CFE77765",
+      "status": "verified: set from this app, the bike's display showed level 0; also echoed in captured traffic of another app"
+    },
+    {
+      "name": "assist_level_1",
+      "frame": "456E10090001010F267765",
+      "status": "verified: set from this app, the bike's display showed level 1; also echoed in captured traffic of another app"
+    },
+    {
+      "name": "assist_level_2",
+      "frame": "456E10090001020E667765",
+      "status": "verified: set from this app, the bike's display showed level 2"
+    },
+    {
+      "name": "assist_level_3",
+      "frame": "456E1009000103CEA77765",
+      "status": "verified: set from this app, the bike's display showed level 3"
+    },
+    {
+      "name": "assist_level_4",
+      "frame": "456E10090001040CE67765",
+      "status": "verified: set from this app, the bike's display showed level 4"
+    },
+    {
+      "name": "assist_level_5",
+      "frame": "456E1009000105CC277765",
+      "status": "verified: set from this app, the bike's display showed level 5"
+    },
+    {
+      "name": "lock",
+      "frame": "456E0108000102F19B7765",
+      "status": "verified: sent from this app, the display went off; with 32 set before, the limit was 25 after Turn off and Turn on; in captured traffic of another app, answered with the lock state 02 (not an echo) and both power flags off at once"
+    },
+    {
+      "name": "unlock",
+      "frame": "456E0108000101F0DB7765",
+      "status": "verified: sent from this app, the display came on, also after a switch-off at the display; the limit was 25 after Turn off and Turn on; in captured traffic of another app, answered with the lock state 01 (not an echo) and both power flags on at once"
+    },
+    {
+      "name": "read_identity",
+      "frame": "456E24110002FF010CDB7765",
+      "status": "observed in captured app traffic; the reply carries command FF01"
+    }
+  ],
+  "echoes": [
+    {
+      "sent": "456E2A6500011056237765",
+      "reply": "456E2A6500011056237765",
+      "observed_latency_s": 0.03
+    },
+    {
+      "sent": "456E2A6500011950E37765",
+      "reply": "456E2A6500011950E37765",
+      "observed_latency_s": 0.1
+    },
+    {
+      "sent": "456E2A6500012042237765",
+      "reply": "456E2A6500012042237765",
+      "observed_latency_s": 0.08
+    },
+    {
+      "sent": "456E05970001FFA4857765",
+      "reply": "456E05970001FFA4857765",
+      "observed_latency_s": 0.05
+    },
+    {
+      "sent": "456E0597000100E4C57765",
+      "reply": "456E0597000100E4C57765",
+      "observed_latency_s": 1.36,
+      "note": "slowest echo observed; still inside a 2 s window"
+    },
+    {
+      "sent": "456E10090001010F267765",
+      "reply": "456E10090001010F267765",
+      "observed_latency_s": 0.05
+    },
+    {
+      "sent": "456E1009000100CFE77765",
+      "reply": "456E1009000100CFE77765",
+      "observed_latency_s": 0.04
+    }
+  ],
+  "not_echoes": [
+    {
+      "sent": "456E2A6500012042237765",
+      "reply": "456E2A650001009A227765",
+      "why": "same command, different payload (this 2A65 00 frame was the bike's reply to a read request)"
+    },
+    {
+      "sent": "456E2A6500012042237765",
+      "reply": "456E0597000100E4C57765",
+      "why": "different command"
+    }
+  ],
+  "replies": [
+    {
+      "sent": "456E0108000102F19B7765",
+      "reply": "456E01090001020D9A7765",
+      "observed_latency_s": 0.07,
+      "note": "a lock is answered with the lock state, same value"
+    },
+    {
+      "sent": "456E0108000101F0DB7765",
+      "reply": "456E01090001010CDA7765",
+      "observed_latency_s": 0.05,
+      "note": "an unlock is answered with the lock state, same value"
+    }
+  ],
+  "other_bike_frames": [
+    {
+      "name": "wheel_started",
+      "frame": "456E2A64000101A6E27765",
+      "note": "unsolicited; not a status frame"
+    },
+    {
+      "name": "wheel_stopped",
+      "frame": "456E2A64000102A7A27765",
+      "note": "unsolicited; not a status frame"
+    }
+  ],
+  "status_frames": [
+    {
+      "name": "idle_display_on",
+      "payload": "0000000000000000000000000000FF00C16F000000500000000000000000000000000001176411010100148E000000003B9E00000001",
+      "expected": {
+        "speed_kmh": 0.0,
+        "max_speed_kmh": 0.0,
+        "odometer_km": 4951.9,
+        "assist_level": 0,
+        "battery_pct": 80,
+        "lights": "off",
+        "power_flags": [
+          1,
+          1
+        ],
+        "temperature_raw": 23,
+        "battery_health_raw": 100,
+        "voltage_v": 52.62,
+        "ride_time_min": 15262
+      },
+      "note": "stationary, display on, assist 0, lights off"
+    },
+    {
+      "name": "wheel_spinning",
+      "payload": "0066006D00000000000000000000FF00C16F00000050000000000000000000000000000117640F010100148B000000003B9E00000001",
+      "expected": {
+        "speed_kmh": 10.2,
+        "max_speed_kmh": 10.9,
+        "odometer_km": 4951.9,
+        "assist_level": 0,
+        "battery_pct": 80,
+        "lights": "off",
+        "power_flags": [
+          1,
+          1
+        ],
+        "temperature_raw": 23,
+        "battery_health_raw": 100,
+        "voltage_v": 52.59,
+        "ride_time_min": 15262
+      },
+      "note": "rear wheel spun by hand, coasting down"
+    },
+    {
+      "name": "after_wheel_spin",
+      "payload": "0000006D00000000000000000000FF00C170000000500000000000000000000000000001186410010100148B000000003B9E00000001",
+      "expected": {
+        "speed_kmh": 0.0,
+        "max_speed_kmh": 10.9,
+        "odometer_km": 4952.0,
+        "assist_level": 0,
+        "battery_pct": 80,
+        "lights": "off",
+        "power_flags": [
+          1,
+          1
+        ],
+        "temperature_raw": 24,
+        "battery_health_raw": 100,
+        "voltage_v": 52.59,
+        "ride_time_min": 15262
+      },
+      "note": "wheel stopped; the display then showed max 10.9 km/h, the odometer, battery 80 %"
+    },
+    {
+      "name": "lights_on",
+      "payload": "0000000000000000000000000000FF00C16F00000051000000000000FF000000000000011864110101001490000000003B9E00000001",
+      "expected": {
+        "speed_kmh": 0.0,
+        "max_speed_kmh": 0.0,
+        "odometer_km": 4951.9,
+        "assist_level": 0,
+        "battery_pct": 81,
+        "lights": "on",
+        "power_flags": [
+          1,
+          1
+        ],
+        "temperature_raw": 24,
+        "battery_health_raw": 100,
+        "voltage_v": 52.64,
+        "ride_time_min": 15262
+      },
+      "note": "lights switched on by hand"
+    },
+    {
+      "name": "assist_1",
+      "payload": "00000000000000000000000000006B00C16F01000051000000000000000000000000000117640E010100148E000000003B9E00000001",
+      "expected": {
+        "speed_kmh": 0.0,
+        "max_speed_kmh": 0.0,
+        "odometer_km": 4951.9,
+        "assist_level": 1,
+        "battery_pct": 81,
+        "lights": "off",
+        "power_flags": [
+          1,
+          1
+        ],
+        "temperature_raw": 23,
+        "battery_health_raw": 100,
+        "voltage_v": 52.62,
+        "ride_time_min": 15262
+      },
+      "note": "assist raised 0 -> 1 by hand"
+    },
+    {
+      "name": "assist_2",
+      "payload": "00000000000000000000000000005D00C16F020000510000000000000000000000000001176411010100148E000000003B9E00000001",
+      "expected": {
+        "speed_kmh": 0.0,
+        "max_speed_kmh": 0.0,
+        "odometer_km": 4951.9,
+        "assist_level": 2,
+        "battery_pct": 81,
+        "lights": "off",
+        "power_flags": [
+          1,
+          1
+        ],
+        "temperature_raw": 23,
+        "battery_health_raw": 100,
+        "voltage_v": 52.62,
+        "ride_time_min": 15262
+      },
+      "note": "assist raised 1 -> 2 by hand"
+    },
+    {
+      "name": "display_off",
+      "payload": "0000006D00000000000000000000FF00C17000000050000000000000000000000000000118640E000000148B000000003B9E00000001",
+      "expected": {
+        "speed_kmh": 0.0,
+        "max_speed_kmh": 10.9,
+        "odometer_km": 4952.0,
+        "assist_level": 0,
+        "battery_pct": 80,
+        "lights": "off",
+        "power_flags": [
+          0,
+          0
+        ],
+        "temperature_raw": 24,
+        "battery_health_raw": 100,
+        "voltage_v": 52.59,
+        "ride_time_min": 15262
+      },
+      "note": "display switched off; Bluetooth link and status frames continue"
+    },
+    {
+      "name": "display_powering_on",
+      "payload": "0000000000000000000000000000FF00C17000000050000000000000000000000000000118640E0001001493000000003B9E00000001",
+      "expected": {
+        "speed_kmh": 0.0,
+        "max_speed_kmh": 0.0,
+        "odometer_km": 4952.0,
+        "assist_level": 0,
+        "battery_pct": 80,
+        "lights": "off",
+        "power_flags": [
+          0,
+          1
+        ],
+        "temperature_raw": 24,
+        "battery_health_raw": 100,
+        "voltage_v": 52.67,
+        "ride_time_min": 15262
+      },
+      "note": "display switched on: second flag returns first, max speed resets"
+    },
+    {
+      "name": "display_on_again",
+      "payload": "0000000000000000000000000000FF00C17000000050000000000000000000000000000118640E0101001493000000003B9E00000001",
+      "expected": {
+        "speed_kmh": 0.0,
+        "max_speed_kmh": 0.0,
+        "odometer_km": 4952.0,
+        "assist_level": 0,
+        "battery_pct": 80,
+        "lights": "off",
+        "power_flags": [
+          1,
+          1
+        ],
+        "temperature_raw": 24,
+        "battery_health_raw": 100,
+        "voltage_v": 52.67,
+        "ride_time_min": 15262
+      },
+      "note": "both flags back about 2 s later"
+    },
+    {
+      "name": "before_speed_set",
+      "payload": "0000000000000000000000000000FF00C1A70000004500000000000000000000000000011664100101001412000000003BAF00000000",
+      "expected": {
+        "speed_kmh": 0.0,
+        "max_speed_kmh": 0.0,
+        "odometer_km": 4957.5,
+        "assist_level": 0,
+        "battery_pct": 69,
+        "lights": "off",
+        "power_flags": [
+          1,
+          1
+        ],
+        "temperature_raw": 22,
+        "battery_health_raw": 100,
+        "voltage_v": 51.38,
+        "ride_time_min": 15279
+      },
+      "note": "stationary, display on, battery 69 %"
+    }
+  ],
+  "status_sequences": [
+    {
+      "name": "display_off_then_on",
+      "frames": [
+        "after_wheel_spin",
+        "display_off",
+        "display_powering_on",
+        "display_on_again"
+      ],
+      "note": "a power-on is complete when both flags are non-zero again"
+    }
+  ],
+  "stream_cases": [
+    {
+      "name": "truncated_before_mtu_exchange",
+      "chunks": [
+        "456E2A6300360000000000000000000000000000",
+        "456E2A6300360000000000000000000000000000FF00C17000000050000000000000000000000000000118640F010100148B000000003B9E0000000155C57765"
+      ],
+      "expected_kinds": [
+        "malformed",
+        "frame"
+      ],
+      "note": "the first status notification arrived cut to 20 bytes before the MTU exchange; the next one is complete"
+    }
+  ],
+  "identity_reply": {
+    "frame": "456EFF010036454E4757455F4F6D6E695F6562696B6531313030455533313700000031000000000046414B4553455249414C30303030303030303000EE3D7765",
+    "payload": "454E4757455F4F6D6E695F6562696B6531313030455533313700000031000000000046414B4553455249414C30303030303030303000",
+    "model": "ENGWE_Omni_ebike1100EU317",
+    "layout": "model ASCII (bytes 0-24), NUL x3, '1', NUL x5, serial ASCII (bytes 34-52, synthetic here), NUL",
+    "synthetic": true
+  }
+}

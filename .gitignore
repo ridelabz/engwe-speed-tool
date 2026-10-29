@@ -1,0 +1,38 @@
+# Gradle and Kotlin
+.gradle/
+.kotlin/
+build/
+local.properties
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# Signing material (the public test key is the only exception, added explicitly)
+*.jks
+*.keystore
+*.p12
+!signing/public-test.keystore
+
+# Logs, exports and captures never belong in the repo
+*.log
+*.jsonl
+captures/
+btsnoop*
+*.cfa
+bugreport*
+*.hprof
+
+# Build outputs and signing properties
+*.apk
+*.aab
+*.idsig
+keystore.properties
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/

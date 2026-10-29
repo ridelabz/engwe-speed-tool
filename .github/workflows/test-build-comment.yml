@@ -1,0 +1,51 @@
+name: Test build comment
+
+# Keeps one comment per pull request with the test APK's download link, or the reason there is none.
+# This workflow can write to pull requests, so it never checks out, builds or runs pull request code:
+# it runs a script from main that talks only to the GitHub API (see .github/scripts/).
+
+on:
+  workflow_run:
+    workflows: [CI, Test build]
+    types: [completed]
+  pull_request_target:
+    types: [opened, reopened, synchronize, labeled, unlabeled]
+
+permissions:
+  actions: read
+  contents: read
+  pull-requests: write
+
+defaults:
+  run:
+    shell: bash # -eo pipefail
+
+jobs:
+  comment:
+    name: Comment
+    # Runs cancelled by a newer push are skipped before they can queue: the newer run reports instead.
+    # Label events count only for the approval label, so other labels can't push an update out of the queue.
+    if: >-
+      (github.event_name == 'pull_request_target' &&
+        ((github.event.action != 'labeled' && github.event.action != 'unlabeled') ||
+          github.event.label.name == 'safe-to-test')) ||
+      (github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion != 'cancelled')
+    # One update at a time per pull request branch. GitHub drops a waiting update when a newer one queues;
+    # that is fine because every update recomputes everything from the API.
+    concurrency:
+      group: >-
+        test-build-comment-${{ github.event.workflow_run.head_repository.full_name || github.event.pull_request.head.repo.full_name }}-${{ github.event.workflow_run.head_branch || github.event.pull_request.head.ref }}
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out main (never the pull request)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+          sparse-checkout: .github
+      - name: Update the comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 -I .github/scripts/test_build_comment.py

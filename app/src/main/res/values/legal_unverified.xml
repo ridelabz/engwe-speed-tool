@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The acknowledgement a rider gives before the first command to an unverified bike. The app records it
+     per bike and legal-text version; changing anything here needs a maintainer's review, and a change of
+     meaning needs a new legal_text_version, so that riders acknowledge it again. -->
+<resources>
+    <string name="unverified_title">This model hasn’t been tested yet</string>
+    <string name="unverified_untested">The project hasn’t tested this model. Speed and light changes may not work, or may work differently.</string>
+    <string name="unverified_might_be_permanent">A speed change might not reset when the bike turns off. It could be permanent.</string>
+    <string name="unverified_restore">To go back, tap 25.</string>
+    <string name="unverified_reports_help">Reports from riders get bikes verified. Tell us what happens, in a few taps.</string>
+    <string name="unverified_continue">Continue at my own risk</string>
+    <string name="unverified_continue_and_report">Continue and report results</string>
+</resources>

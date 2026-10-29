@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_next">Next</string>
+
+    <!-- Report -->
+    <string name="report_step">Step %1$d of %2$d</string>
+    <string name="report_step_what">What happened?</string>
+    <string name="report_step_shared">What will be shared</string>
+    <string name="report_step_send">Send</string>
+    <string name="report_type_compatibility">How it worked on my bike</string>
+    <string name="report_type_compatibility_detail">Whether the speed limit and lights worked, and where assistance stopped.</string>
+    <string name="report_type_problem">Something went wrong</string>
+    <string name="report_type_problem_detail">An error, a crash or something that looks wrong.</string>
+    <string name="report_type_idea">An idea</string>
+    <string name="report_type_idea_detail">Something the app could do better.</string>
+    <string name="report_stop_speed">Assistance stopped at</string>
+    <string name="report_stop_speed_hint">Leave it empty if you haven’t ridden yet.</string>
+    <!-- %1$d: the speed the bike confirmed last in this run -->
+    <string name="report_stop_speed_with">With %1$d\u00A0km/h set, assistance stopped at</string>
+    <string name="report_stop_speed_no_speed">No speed was confirmed in this run, so this answer won’t be shared. Report from the run in which you set the speed.</string>
+    <string name="report_iot_version">IoT firmware version (optional)</string>
+    <string name="report_iot_version_hint">As the ENGWE app shows it. Type only the version: a screenshot could show more than that.</string>
+    <string name="report_iot_version_needs_digit">What you typed has no digit, so it won’t be shared.</string>
+    <string name="report_nothing_identifying">No personal or bike-identifying data.</string>
+    <string name="report_own_account">Opening GitHub sends these details to GitHub to fill in the form, and they stay in the browser’s history. Nothing is posted until you submit the form yourself, under your own GitHub account.</string>
+    <string name="report_check_model">The bike model is the text your bike sent: check it before you share it.</string>
+    <string name="report_no_log">There is no session log to attach this time. You can still open GitHub.</string>
+    <string name="report_log_title">The session log</string>
+    <string name="report_log_reading">Reading the log…</string>
+    <string name="report_send">Save log and open GitHub</string>
+    <string name="report_send_detail">The app saves the session log from the previous step in your phone’s Downloads folder, named with the log’s date and a number, and opens the form in your browser, filled in. You attach the log there.</string>
+    <string name="downloads_note">Files in Downloads can be opened by apps with access to your files, and stay until you delete them.</string>
+    <string name="report_sending">Saving the log…</string>
+    <!-- %1$s: the log file's name, such as engwe-speed-tool-2026-10-28-1.log -->
+    <string name="report_sent_downloads">Saved in Downloads as %1$s.</string>
+    <!-- “Session log” is the field's label in the GitHub form, which is in English: keep it as it is. %1$s: the log file's name. -->
+    <string name="report_attach_downloads">In the form, under “Session log”, tap to attach a file and choose %1$s from Downloads.</string>
+    <string name="report_sent_chosen">The log is saved where you chose.</string>
+    <!-- “Session log” is the field's label in the GitHub form, which is in English: keep it as it is. -->
+    <string name="report_attach_chosen">In the form, under “Session log”, tap to attach a file and choose the log you saved.</string>
+    <string name="report_sent_not_saved">The log wasn’t saved. Save it from Diagnostics, then attach it to the form.</string>
+    <string name="report_sent_opened">The form is open in your browser. Check it, then submit it under your own GitHub account.</string>
+    <string name="report_delete_after">Once it’s attached, you can delete the log from Downloads.</string>
+    <string name="report_open_again">Open GitHub again</string>
+    <string name="report_open_github_only">Open GitHub</string>
+    <string name="report_open_github_detail_idea">Your idea opens in the browser as a GitHub issue, ready for you to describe it.</string>
+    <string name="report_repository" translatable="false">https://github.com/ridelabz/engwe-speed-tool</string>
+    <string name="report_link_omitted">Some details didn’t fit in the link: the log has them.</string>
+    <string name="report_open_failed">No browser could open the report. Install or enable a browser and try again.</string>
+    <string name="report_item_android_phone">Android and phone</string>
+    <string name="report_item_verification">Verification</string>
+    <string name="report_item_build">Build</string>
+    <string name="report_item_checks">Checks</string>
+    <string name="report_item_state">What the app showed</string>
+    <!-- %1$d: the speed set when assistance stopped -->
+    <string name="report_item_stop_speed_at">With %1$d\u00A0km/h set, assistance stopped at</string>
+    <!-- What a report sends is in English, whatever the app's language: the issue tracker reads English. -->
+    <string name="report_value_verified" translatable="false">Verified</string>
+    <string name="report_value_unverified" translatable="false">Unverified</string>
+    <string name="report_value_checks_passed" translatable="false">Passed: bike service, notifications, confirmed writes, status, model</string>
+    <string name="report_value_confirmed" translatable="false">%1$d km/h confirmed</string>
+    <string name="report_value_not_confirmed" translatable="false">%1$d km/h not confirmed</string>
+    <string name="report_value_assist_confirmed" translatable="false">Assist %1$d confirmed</string>
+    <string name="report_value_assist_not_confirmed" translatable="false">Assist %1$d not confirmed</string>
+    <string name="report_value_kmh" translatable="false">%1$d km/h</string>
+    <string name="report_value_no_errors" translatable="false">No errors</string>
+    <string name="report_value_one_error" translatable="false">1 error, with details in the log</string>
+    <string name="report_value_errors" translatable="false">%1$d errors, with details in the log</string>
+    <string name="report_value_pull_request" translatable="false">PR #%1$d</string>
+    <string name="report_value_local_build" translatable="false">%1$s, local test build</string>
+    <string name="report_value_restart_yes" translatable="false">Yes</string>
+    <string name="report_value_restart_no" translatable="false">No, it stayed at the speed I had set</string>
+    <string name="report_value_restart_not_checked" translatable="false">Didn\'t check</string>
+    <string name="report_item_back_to_25">Back to 25\u00A0km/h after switching the bike off and on</string>
+    <!-- A compatibility check's result as the report's form and a share take it: English, whatever the app's language. -->
+    <string name="report_check_checked" translatable="false">Complete; status messages read: %1$d in %2$d s</string>
+    <string name="report_check_link_lost" translatable="false">Connection lost; status messages read: %1$d in %2$d s</string>
+    <string name="report_check_incompatible" translatable="false">Not compatible</string>
+    <string name="report_check_interrupted" translatable="false">Interrupted: the app connected to the bike for something else</string>
+    <string name="report_check_not_found" translatable="false">Not connected: the bike wasn\'t found</string>
+    <string name="report_check_connect_failed" translatable="false">Not connected: the connection failed</string>
+    <string name="report_check_lost_early" translatable="false">Connection lost before the checks finished</string>
+    <string name="report_check_bluetooth" translatable="false">Stopped: Bluetooth off or not allowed</string>
+    <string name="report_check_not_accepted" translatable="false">Stopped before reading the model: the risks weren\'t accepted in the app</string>
+    <string name="report_check_too_long" translatable="false">Didn\'t finish: it took too long</string>
+    <string name="report_check_passed" translatable="false">Passed: %1$s</string>
+    <string name="report_check_failed" translatable="false">Failed: %1$s</string>
+    <string name="report_check_not_run" translatable="false">Not run: %1$s</string>
+    <string name="report_check_plausible" translatable="false">Plausible: %1$s</string>
+    <string name="report_check_out_of_range" translatable="false">Out of range: %1$s</string>
+    <string name="report_check_went_back" translatable="false">Went down: %1$s</string>
+    <string name="report_check_not_read" translatable="false">Not read: %1$s</string>
+    <string name="report_check_unverified" translatable="false">Meaning not verified: %1$s</string>
+    <string name="report_check_all_values" translatable="false">all values read</string>
+    <string name="report_check_unreadable" translatable="false">Some status messages didn\'t fit the layout</string>
+    <string name="report_check_service" translatable="false">bike service</string>
+    <string name="report_check_notify" translatable="false">notifications</string>
+    <string name="report_check_write" translatable="false">confirmed writes</string>
+    <string name="report_check_status" translatable="false">status</string>
+    <string name="report_check_identity" translatable="false">model</string>
+    <string name="report_check_speed" translatable="false">speed</string>
+    <string name="report_check_max_speed" translatable="false">max speed</string>
+    <string name="report_check_odometer" translatable="false">odometer</string>
+    <string name="report_check_assist" translatable="false">assist level</string>
+    <string name="report_check_battery" translatable="false">battery</string>
+    <string name="report_check_lights" translatable="false">lights</string>
+    <string name="report_check_power" translatable="false">on/off</string>
+    <string name="report_check_voltage" translatable="false">voltage</string>
+    <string name="report_check_ride_time" translatable="false">ride time</string>
+    <string name="report_share_title" translatable="false">ENGWE Speed Tool (Unofficial) %1$s: compatibility check</string>
+    <string name="report_share_model" translatable="false">Bike model: %1$s</string>
+    <string name="report_share_verification" translatable="false">Verification: %1$s</string>
+
+    <!-- The ride test: on the app open after an unverified bike confirmed a speed. %1$d: that speed -->
+    <string name="ride_test_title">How did %1$d\u00A0km/h work?</string>
+    <string name="ride_test_intro">You offered to report how the app works on your bike. Two questions, both optional: your answers fill in a compatibility report, which you check before anything is shared.</string>
+    <string name="ride_test_stopped">Did the assistance stop at %1$d\u00A0km/h?</string>
+    <string name="ride_test_yes">Yes</string>
+    <string name="ride_test_stopped_no">No, it stopped at another speed</string>
+    <string name="ride_test_stopped_at">It stopped at about</string>
+    <string name="ride_test_not_ridden">Didn’t ride yet</string>
+    <string name="ride_test_restart">After switching the bike off and on, was it back to 25\u00A0km/h?</string>
+    <string name="ride_test_restart_no">No, it stayed at %1$d\u00A0km/h</string>
+    <string name="ride_test_not_checked">Didn’t check</string>
+    <string name="ride_test_next">Next comes the report, as from the menu: what will be shared, then the log file and GitHub.</string>
+    <string name="ride_test_skip">Skip</string>
+    <string name="ride_test_report">Report</string>
+    <string name="report_demo_note">Demo mode doesn’t save or open anything.</string>
+    <string name="report_demo_done">Nothing was saved or opened.</string>
+    <string name="report_item_app">App</string>
+    <string name="report_item_android">Android</string>
+    <string name="report_item_phone">Phone</string>
+    <string name="report_item_model">Bike model</string>
+    <string name="report_item_results">Speed changes</string>
+    <string name="report_item_assist_results">Assist levels set</string>
+    <string name="report_item_errors">Errors</string>
+    <string name="report_item_iot_version">IoT firmware</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_section_bike">Bike</string>
+    <string name="settings_section_riding">Riding</string>
+    <string name="settings_section_display">Display</string>
+    <string name="settings_section_privacy">Logs and legal</string>
+    <string name="settings_name">Name</string>
+    <string name="settings_rename_title">Rename your bike</string>
+    <string name="settings_rename_privacy">Only this app shows the name. It stays on your phone and is never in logs or reports.</string>
+    <string name="settings_rename_save">Save</string>
+    <string name="settings_forget">Forget this bike</string>
+    <string name="settings_forget_title">Forget “%1$s”?</string>
+    <string name="settings_forget_body">The app forgets this bike and its name. Nothing changes on the bike: a speed you set stays at least until the bike is switched off. To use the bike again, you find and check it like the first time.</string>
+    <string name="settings_forget_active">%1$d\u00A0km/h is set now. Tap %2$d on the dashboard first to go back to the default.</string>
+    <string name="settings_forget_confirm">Forget</string>
+    <string name="settings_keep_speed_kmh">Keep %1$d\u00A0km/h</string>
+    <string name="settings_keep_speed_none">Keep the speed you set</string>
+    <string name="settings_reset_warnings">Show speed warnings again</string>
+    <string name="settings_reset_detail">For speeds where you chose “Don’t show again”</string>
+    <string name="settings_reset_warnings_done">Speed warnings will show again.</string>
+    <string name="settings_keep_screen_on">Keep the screen on</string>
+    <string name="settings_keep_screen_on_detail">While the dashboard is open</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_language_detail">The phone’s language, or one you choose for the app</string>
+    <string name="settings_logs">Session logs</string>
+    <plurals name="settings_logs_detail">
+        <item quantity="one">The last session is kept on this phone</item>
+        <item quantity="other">The last %1$d sessions are kept on this phone</item>
+    </plurals>
+    <string name="settings_logs_delete">Delete stored logs</string>
+    <string name="settings_logs_delete_title">Delete the stored session logs?</string>
+    <string name="settings_logs_delete_body">The logs of the last runs are deleted, and this run’s log starts again. Log files you saved elsewhere stay.</string>
+    <string name="settings_logs_delete_confirm">Delete</string>
+    <string name="settings_logs_deleted">Stored logs deleted</string>
+
+    <!-- About -->
+    <string name="about_title">About</string>
+    <string name="about_version">Version %1$s</string>
+    <string name="about_compatibility_title">Compatibility</string>
+    <string name="about_other_models">Other ENGWE models</string>
+    <string name="about_tested_firmware">Tested with IoT firmware %1$s</string>
+    <string name="about_not_tested">Not tested yet</string>
+    <string name="about_compatibility_note">A model becomes verified when riders’ reports confirm that the speed limit works on it. This app can’t read your bike’s firmware, so please type its IoT version (shown in the ENGWE app) into your report. Type only the version: a screenshot could show more than that.</string>
+    <string name="about_contribute_title">Help and contributing</string>
+    <string name="about_contribute">Use Report in the menu to tell the project how the app worked on your bike. Bike profiles and fixes are welcome as pull requests.</string>
+    <string name="about_support">The app is community-supported: there is no individual support.</string>
+    <string name="about_licence_title">Licence</string>
+    <string name="about_source">Source code: github.com/ridelabz/engwe-speed-tool</string>
+    <string name="about_verified">Verified by the project’s tests</string>
+    <string name="about_licences">Open-source licences</string>
+    <string name="licences_title">Open-source licences</string>
+    <string name="licences_intro">The app’s own licence, then the licence of the libraries and icons it includes.</string>
+    <string name="licences_app">ENGWE Speed Tool: GNU General Public License, version 3</string>
+    <string name="licences_libraries">Android Jetpack, Kotlin and its libraries, and Material Symbols: Apache License, version 2.0</string>
+    <string name="about_prior_work">Thanks to everyone who shared what they learned about these bikes.</string>
+
+    <!-- Diagnostics -->
+    <string name="diagnostics_title">Diagnostics</string>
+    <string name="diagnostics_check">The compatibility check reads what your bike offers and how it answers, for 30\u00A0seconds, without changing anything.</string>
+    <string name="diagnostics_log">The session log records what the app and the bike said to each other, with the phone’s and the bike’s models, the bike’s readings and, after a compatibility check, the Bluetooth services it declares, but no identifiers: no Bluetooth address, serial number or names.</string>
+    <string name="diagnostics_log_saved">Session log saved.</string>
+    <!-- %1$s: the log file's name, such as engwe-speed-tool-2026-10-28-1.log -->
+    <string name="diagnostics_log_saved_downloads">Saved in Downloads as %1$s.</string>
+    <string name="diagnostics_log_not_saved">The session log couldn’t be saved. Try again, or choose another place.</string>
+    <string name="diagnostics_save_log">Save to Downloads</string>
+    <!-- %1$s: the log's date (YYYY-MM-DD), %2$s: the number of the save for that date, both in ASCII digits.
+         No time of day, on purpose. -->
+    <string name="diagnostics_log_file_name" translatable="false">engwe-speed-tool-%1$s-%2$s.log</string>
+    <string name="diagnostics_run_check">Run compatibility check</string>
+    <string name="diagnostics_logs_title">Session logs</string>
+    <string name="diagnostics_log_this_run">This run · %1$s</string>
+    <string name="diagnostics_log_earlier">Earlier run %1$d · %2$s</string>
+    <string name="diagnostics_log_open">Preview and save</string>
+    <string name="diagnostics_logs_note">The app keeps the logs of its last 5 runs on this phone. Nothing leaves the phone unless you save a log.</string>
+    <string name="diagnostics_logs_none">No logs are stored.</string>
+
+    <!-- Session log preview -->
+    <string name="log_preview_title">Session log</string>
+    <string name="log_preview_intro">This is exactly what the saved file will contain. The app removes Bluetooth addresses, serial numbers, names and the time of day, but it can’t always tell whether the bike added its serial number to the model. Check the bike model below: it’s the only text the bike sent. The log also holds ride data, such as the odometer, and the Bluetooth services a compatibility check found.</string>
+    <string name="log_preview_gone">This log is no longer on the phone.</string>
+    <string name="log_preview_replaced">The log of the ride you’re reporting is no longer on the phone (it keeps the last five runs): this is this run’s log.</string>
+    <string name="log_summary_models">Bike model, as the log holds it</string>
+    <string name="log_summary_not_recorded">Not recorded</string>
+    <string name="log_summary_under_minute">Under 1\u00A0min</string>
+    <plurals name="log_preview_lines">
+        <item quantity="one">%1$d line</item>
+        <item quantity="other">%1$d lines</item>
+    </plurals>
+    <string name="log_summary_date">Date</string>
+    <string name="log_summary_model_not_read">Not read</string>
+    <string name="log_summary_commands">Changes sent</string>
+    <string name="log_summary_not_sent">Not sent</string>
+    <string name="log_summary_retries">Connection retries</string>
+    <string name="log_summary_length">Length</string>
+    <string name="log_summary_size">Size</string>
+    <string name="log_summary_none">None</string>
+    <!-- %1$s: what was changed (e.g. 32 km/h, lights on), %2$s: how it ended -->
+    <string name="log_summary_command">%1$s: %2$s</string>
+    <string name="log_summary_lights_on">lights on</string>
+    <string name="log_summary_lights_off">lights off</string>
+    <string name="log_summary_assist">assist %1$d</string>
+    <string name="log_summary_lock">turn off (lock)</string>
+    <string name="log_summary_unlock">turn on (unlock)</string>
+    <string name="log_summary_confirmed">confirmed</string>
+    <string name="log_summary_not_confirmed">not confirmed</string>
+    <string name="log_summary_failed">failed</string>
+    <string name="log_summary_no_outcome">no outcome recorded</string>
+    <string name="log_summary_minutes">%1$d\u00A0min</string>
+
+    <string name="diagnostics_check_needs_bike">The check runs on your saved bike. Without one, the check while choosing your bike shows whether the app can work with it.</string>
+    <string name="diagnostics_check_disconnects">While the check runs, the dashboard isn’t connected. It connects again afterwards, and if “Keep this speed” is on, the kept speed is set again, as after any reconnection.</string>
+
+    <!-- Compatibility check -->
+    <string name="compat_title">Compatibility check</string>
+    <string name="compat_title_done">Compatibility check done</string>
+    <string name="compat_read_only">The check only reads. The one thing it asks the bike for is its model; nothing on the bike changes.</string>
+    <string name="compat_step_searching">Looking for your bike…</string>
+    <string name="compat_step_connecting">Connecting…</string>
+    <string name="compat_step_services">Checking what the bike offers…</string>
+    <string name="compat_step_notifications">Asking the bike for its status…</string>
+    <string name="compat_step_status">Waiting for the bike’s status…</string>
+    <string name="compat_step_identity">Reading the bike’s model…</string>
+    <!-- %1$d: seconds -->
+    <string name="compat_step_reading_status">Reading the bike’s status for %1$d seconds…</string>
+    <!-- %1$d: seconds read so far, %2$d: seconds in all -->
+    <string name="compat_step_reading">Reading the bike’s status: %1$d of %2$d\u00A0s</string>
+    <string name="compat_outcome_checked">The check is complete.</string>
+    <string name="compat_outcome_link_lost">The connection ended during the check. The results below are as far as it got.</string>
+    <string name="compat_outcome_incompatible">The bike didn’t pass a check, so the app can’t work with it.</string>
+    <string name="compat_outcome_not_found">Your bike wasn’t found. Make sure it is switched on and close by.</string>
+    <string name="compat_outcome_bluetooth">Bluetooth is off or not allowed for the app.</string>
+    <string name="compat_outcome_not_accepted">The app reads the bike’s model only once you’ve accepted the risks. Open Legal &amp; safety from the menu.</string>
+    <string name="compat_outcome_interrupted">The check stopped because the app connected to the bike for something else. Run it again.</string>
+    <string name="compat_outcome_too_long">The check took too long. Try again closer to the bike.</string>
+    <string name="compat_outcome_not_connected">The app couldn’t connect. The bike may be connected to another phone.</string>
+    <string name="compat_model">Bike model, as the bike sent it</string>
+    <string name="compat_model_not_read">Not read</string>
+    <string name="compat_verified">Verified: a model tested by the project</string>
+    <string name="compat_unverified">Unverified: the project hasn’t tested this model yet</string>
+    <string name="compat_incompatible">Not compatible</string>
+    <string name="compat_checks">Protocol checks</string>
+    <string name="compat_check_service">The bike’s service</string>
+    <string name="compat_check_notify">Status notifications</string>
+    <string name="compat_check_write">Confirmed writes</string>
+    <string name="compat_check_status">A valid status</string>
+    <string name="compat_check_identity">The bike’s model</string>
+    <!-- %1$d: statuses read, %2$d: seconds -->
+    <plurals name="compat_status_frames">
+        <item quantity="one">%1$d status read in %2$d\u00A0s</item>
+        <item quantity="other">%1$d statuses read in %2$d\u00A0s</item>
+    </plurals>
+    <string name="compat_unreadable">Some status messages didn’t fit this model’s layout, so their values weren’t read.</string>
+    <string name="compat_values">Values</string>
+    <string name="compat_services">What the bike offers</string>
+    <string name="compat_services_note">Its Bluetooth services and characteristics, as the bike declared them. Useful to maintainers when a model doesn’t pass the checks. Custom ones show only the first part of their number, as in the session log.</string>
+    <!-- %1$s: a characteristic's number, %2$s: what it offers (read, notify…) -->
+    <string name="compat_characteristic">%1$s: %2$s</string>
+    <!-- %1$s: a characteristic's number, %2$s: what it offers, %3$s: its descriptors -->
+    <string name="compat_characteristic_descriptors">%1$s: %2$s (descriptors %3$s)</string>
+    <string name="compat_property_broadcast">broadcast</string>
+    <string name="compat_property_read">read</string>
+    <string name="compat_property_write_no_response">write without response</string>
+    <string name="compat_property_write">write</string>
+    <string name="compat_property_notify">notify</string>
+    <string name="compat_property_indicate">indicate</string>
+    <string name="compat_property_signed_write">signed write</string>
+    <string name="compat_property_extended">extended properties</string>
+    <string name="compat_property_none">(none)</string>
+    <string name="compat_value_plausible">Plausible</string>
+    <string name="compat_value_out_of_range">Outside what a bike can show</string>
+    <string name="compat_value_went_back">Went down, though it only counts up</string>
+    <string name="compat_value_not_read">Not read</string>
+    <!-- %1$s: the value's result, e.g. Plausible -->
+    <string name="compat_value_unverified">%1$s · its meaning isn’t verified for this model</string>
+    <string name="compat_field_speed">Speed</string>
+    <string name="compat_field_max_speed">Max speed</string>
+    <string name="compat_field_odometer">Odometer</string>
+    <string name="compat_field_assist">Assist level</string>
+    <string name="compat_field_battery">Battery</string>
+    <string name="compat_field_lights">Lights</string>
+    <string name="compat_field_power">Whether the bike is on</string>
+    <string name="compat_field_voltage">Battery voltage</string>
+    <string name="compat_field_ride_time">Total ride time</string>
+    <string name="compat_report">Report this result</string>
+    <string name="compat_run_again">Run again</string>
+    <string name="compat_share">Share</string>
+    <string name="compat_share_title">Share this result</string>
+    <string name="compat_share_intro">This is exactly the text that goes to the app you choose: the app version, the bike model and its verification, and the checks, never the values. No log. It is in English, for maintainers and other riders.</string>
+    <string name="compat_share_demo">Demo mode doesn’t share anything. This is the kind of text a check of a real bike shares.</string>
+    <string name="compat_share_send">Share</string>
+    <string name="compat_share_chooser">Share the check’s result</string>
+</resources>

@@ -1,0 +1,32 @@
+{
+  "schema": 5,
+  "model_identity": "ENGWE_Omni_ebike1100EU317",
+  "display_name": "ENGWE E26 3.0 Pro",
+  "tested_firmware": ["218CAN"],
+  "assist_levels": 5,
+  "lock_control": true,
+  "verified": true,
+  "status_layout": {
+    "payload_length": 54,
+    "fields": [
+      { "name": "speed", "offset": 0, "size": 2, "scale": 0.1, "verified": true },
+      { "name": "max_speed", "offset": 2, "size": 2, "scale": 0.1, "verified": true },
+      { "name": "odometer", "offset": 16, "size": 2, "scale": 0.1, "verified": true },
+      { "name": "assist_level", "offset": 18, "size": 1, "scale": 1, "verified": true },
+      { "name": "battery", "offset": 21, "size": 1, "scale": 1, "verified": true },
+      { "name": "lights", "offset": 28, "size": 1, "scale": 1, "verified": true },
+      { "name": "temperature", "offset": 36, "size": 1, "scale": 1, "verified": true },
+      { "name": "battery_health", "offset": 37, "size": 1, "scale": 1, "verified": true },
+      { "name": "power_flag_a", "offset": 39, "size": 1, "scale": 1, "verified": true },
+      { "name": "power_flag_b", "offset": 40, "size": 1, "scale": 1, "verified": true },
+      { "name": "voltage", "offset": 42, "size": 2, "scale": 0.01, "verified": true },
+      { "name": "ride_time", "offset": 48, "size": 2, "scale": 1, "verified": true }
+    ]
+  },
+  "evidence": [
+    "Maintainer's bike: speed limits 16, 25, 32 and 45 km/h confirmed by echo and by riding with the app; back to 25 km/h after a restart (tested at 16, 32 and 45).",
+    "Speed tracked a hand-spun wheel; max speed, odometer, assist level, battery, lights and display on/off compared with the bike's display; temperature, battery health, voltage and total ride time compared with the ENGWE app.",
+    "Assist levels 0 to 5 set with the app; the bike's display showed each level set.",
+    "Locked and unlocked with the ENGWE app: the bike answered with its lock state, and its status and display showed it off, then on."
+  ]
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Banner on every screen of a test build. Kept in its own file: no translation or other resource
+     file may override these strings, and a check on every test APK makes sure none does. -->
+<resources>
+    <string name="test_build_banner_pr" translatable="false">TEST BUILD · PR #%1$d · not reviewed</string>
+    <string name="test_build_banner_local" translatable="false">TEST BUILD · local · not reviewed</string>
+</resources>

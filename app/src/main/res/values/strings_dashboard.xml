@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Numbers and units -->
+    <string name="number" translatable="false">%1$d</string>
+    <string name="list_separator_spoken">", "</string>
+    <string name="value_missing_spoken">No reading</string>
+    <string name="value_missing" translatable="false">—</string>
+    <string name="value_unverified">Unverified</string>
+    <string name="unit_kmh">km/h</string>
+    <string name="action_more_info">More information</string>
+
+    <!-- Header and menu -->
+    <!-- The top bar's title: the app's short name, as under its icon on the home screen. -->
+    <string name="dashboard_title" translatable="false">Speed Tool</string>
+    <string name="menu_open">More options</string>
+    <string name="menu_report">Report</string>
+    <string name="menu_diagnostics">Diagnostics</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_legal">Legal &amp; safety</string>
+    <string name="menu_about">About</string>
+
+    <!-- The bike's state, in the status card's pill -->
+    <string name="connection_connecting">Connecting…</string>
+    <string name="connection_connected">Connected</string>
+    <string name="connection_on">On</string>
+    <string name="connection_not_connected">Not connected</string>
+    <string name="connection_bike_off">Off or locked</string>
+    <string name="connection_bluetooth_off">Bluetooth off</string>
+    <string name="connection_no_permission">Bluetooth not allowed</string>
+    <string name="connection_incompatible">Not responding as expected</string>
+    <!-- %1$d: the bike's default limit, 25 -->
+    <string name="bike_off_unverified">The limit may not have reset. Switch the bike on (or unlock it) and tap %1$d to restore it.</string>
+    <string name="dashboard_cant_reach">Can’t reach your bike yet. Switch it on, close the ENGWE app and stay near it. The app keeps trying.</string>
+
+    <!-- Turning the bike on and off, which locks and unlocks it -->
+    <string name="power_turn_on_spoken">Turn the bike on</string>
+    <string name="power_turn_off_spoken">Turn the bike off</string>
+    <string name="power_turning_on">Turning on…</string>
+    <string name="power_turning_off">Turning off…</string>
+    <string name="power_off_not_sent_bike_not_on">Not turned off: the bike wasn’t reporting that it was on.</string>
+    <string name="power_on_not_sent_bike_not_off">Not turned on: the bike wasn’t reporting that it was off.</string>
+    <string name="power_off_not_sent_moving">Not turned off: the bike wasn’t reading 0\u00A0km/h. Stop, then tap the app’s power button again.</string>
+    <string name="power_on_not_sent_not_connected">Not turned on: the bike wasn’t connected. Tap the app’s power button again once it’s connected.</string>
+    <string name="power_off_not_sent_not_connected">Not turned off: the bike wasn’t connected. Tap the app’s power button again once it’s connected.</string>
+    <string name="power_on_not_sent_busy">Not turned on: another change was still being sent. Tap the app’s power button again.</string>
+    <string name="power_off_not_sent_busy">Not turned off: another change was still being sent. Tap the app’s power button again.</string>
+    <string name="power_on_not_sent_yet">Not turned on yet. Tap the app’s power button to send it.</string>
+    <string name="power_off_not_sent_yet">Not turned off yet. Tap the app’s power button to send it.</string>
+    <string name="power_on_not_confirmed">The bike didn’t confirm turning on. Try again, switch it on at its display, or unlock it in the ENGWE app.</string>
+    <string name="power_off_not_confirmed">The bike didn’t confirm turning off. Try again, or switch it off at its display.</string>
+
+    <!-- Verification -->
+    <string name="badge_verified">Verified</string>
+    <string name="badge_unverified">Unverified</string>
+    <string name="badge_explain">Explain verification</string>
+    <string name="verification_title_verified">Verified model</string>
+    <string name="verification_title_unverified">Unverified model</string>
+    <!-- %1$s: the model identity the bike reports, such as ENGWE_Omni_ebike1100EU317 -->
+    <string name="verification_matched">Your bike reports the model identity %1$s. It matches a model the project tested.</string>
+    <string name="verification_not_matched">Your bike reports the model identity %1$s. The project hasn’t tested this model.</string>
+    <!-- %1$s: the IoT firmware versions tested, such as 218CAN -->
+    <!-- %2$d: the bike's default limit, 25 -->
+    <string name="verification_firmware">The app can’t read the bike’s IoT firmware. Verified means tested with IoT firmware %1$s on one bike: check yours in the ENGWE app. On other firmware a change might behave differently, including not resetting when the bike turns off: tap %2$d and report it.</string>
+    <string name="verification_firmware_unverified">The app can’t read the bike’s IoT firmware: check it in the ENGWE app and add it to your report.</string>
+    <!-- %1$d: the bike's default limit, 25 -->
+    <string name="verification_unverified_caveat">Changes may behave differently on this model and might not reset when the bike turns off: tap %1$d to restore. Its readings may be wrong.</string>
+    <string name="verification_how">A model the project hasn’t tested is verified after at least two independent reports (different riders and bikes), each with a session log showing the bike’s confirmations and saying that, with 32\u00A0km/h set, assistance stopped within 2\u00A0km/h of it. Ride only where it is legal. COMPATIBILITY.md in the project’s repository has the details.</string>
+    <string name="verification_report">Report how it worked</string>
+
+    <!-- Battery -->
+    <string name="battery_title">Battery</string>
+    <string name="battery_value">%1$d%%</string>
+    <string name="battery_spoken">Battery %1$d%%</string>
+    <string name="battery_spoken_none">Battery, no reading</string>
+
+    <!-- Speed limit -->
+    <string name="speed_title">Speed limit</string>
+    <string name="speed_info">About the speed limit</string>
+    <string name="speed_chip_label">%1$d\u00A0km/h</string>
+    <string name="speed_chip_action">Set %1$d\u00A0km/h</string>
+    <string name="speed_chip_active">Active</string>
+    <string name="speed_chip_confirmed">Confirmed</string>
+    <string name="speed_chip_sending">Sending</string>
+    <string name="speed_chip_not_confirmed">Not confirmed</string>
+    <string name="speed_chip_default">Bike default</string>
+    <string name="speed_chip_above_limit">Above the legal limit</string>
+    <string name="speed_status_default">Bike switched on · in the project’s tests, the limit started at %1$d\u00A0km/h</string>
+    <string name="speed_status_none_unverified">No speed set by this app yet</string>
+    <string name="speed_status_sending">Sending %1$d\u00A0km/h…</string>
+    <!-- %2$s: a time of day -->
+    <string name="speed_status_active">%1$d\u00A0km/h · confirmed by the bike at %2$s</string>
+    <string name="speed_status_until_off">In the project’s tests, a speed set here lasted until the bike was switched off.</string>
+    <!-- %1$d: the bike's default limit, 25 -->
+    <string name="speed_turn_off_resets">In the project’s tests, turning the bike off and on in this app reset the limit to %1$d\u00A0km/h too, as switching it off and on at the display does.</string>
+    <!-- %2$s: a time of day -->
+    <!-- %3$d: the bike's default limit, 25 -->
+    <string name="speed_status_confirmed_unverified">%1$d\u00A0km/h · confirmed by the bike at %2$s. It may not reset when the bike turns off: tap %3$d to restore.</string>
+    <string name="speed_status_unverified_caveat">Not known whether a speed resets when this bike turns off. Tap %1$d to restore.</string>
+    <string name="speed_status_not_confirmed">Not confirmed. Tap %1$d to try again.</string>
+    <string name="speed_not_confirmed_help">What does this mean?</string>
+    <string name="speed_status_restarted">Bike restarted. In the project’s tests, this set the limit back to %1$d\u00A0km/h.</string>
+    <string name="speed_status_restarted_unverified">The bike reported switching off and on. The limit may not be back to %1$d\u00A0km/h: tap %1$d to restore.</string>
+    <string name="speed_status_reapplying">The bike reported switching off and on · re-applying %1$d\u00A0km/h…</string>
+    <string name="speed_status_reapplying_reconnected">Reconnected · re-applying %1$d\u00A0km/h…</string>
+    <string name="speed_status_restarted_unsure">The bike reported switching off and on. Tap %1$d to be sure the limit is %1$d\u00A0km/h.</string>
+    <string name="speed_not_sent_bike_not_on">%1$d\u00A0km/h not sent: the bike wasn’t reporting that it was on. Switch it on, wait a moment and tap %1$d again.</string>
+    <string name="speed_not_sent_not_connected">%1$d\u00A0km/h not sent: the bike wasn’t connected. Tap %1$d again once it’s connected.</string>
+    <string name="speed_not_sent_busy">%1$d\u00A0km/h not sent: another change was still being sent. Tap %1$d again.</string>
+    <string name="speed_not_sent_yet">%1$d\u00A0km/h not sent yet. Tap %1$d to set it.</string>
+    <string name="speed_above_limit_note">Marked speeds are above %1$d\u00A0km/h, the EU limit for e-bikes. Use them only where it is legal, for example on private land, at your own risk.</string>
+    <string name="speed_cannot_report">The bike can’t report its limit: the card shows only what the app sent and whether the bike confirmed it.</string>
+    <!-- %1$d: the bike's default limit, 25 -->
+    <string name="speed_after_reconnect">After the app reconnects or opens again, a speed set earlier may still hold even if none is marked. Tap %1$d to be sure.</string>
+    <string name="keep_speed_title">Keep this speed</string>
+    <string name="keep_speed_info">About “Keep this speed”</string>
+    <string name="keep_speed_detail">Set again after restarts and reconnections, at most once a minute, while the app is open</string>
+    <string name="keep_speed_detail_reconnect">Set again each time the app connects to the bike, while the app is open. After you switch the bike off and on, tap the speed again.</string>
+
+    <!-- Assist level -->
+    <string name="assist_title">Assist</string>
+    <string name="assist_info">About the assist level</string>
+    <!-- %1$d: the level, %2$d: the highest level -->
+    <string name="assist_value">%1$d of %2$d</string>
+    <string name="assist_spoken">Assist %1$d of %2$d</string>
+    <string name="assist_spoken_level">Assist %1$d</string>
+    <string name="assist_spoken_none">Assist, no reading</string>
+    <string name="assist_segment">Level %1$d</string>
+    <string name="assist_segment_sending">Sending</string>
+    <!-- %1$d: an assist level -->
+    <string name="assist_status_sending">Setting assist %1$d…</string>
+    <string name="assist_status_reapplying">Reconnected · setting assist %1$d again…</string>
+    <string name="assist_status_reapplying_restart">The bike reported switching off and on · setting assist %1$d again…</string>
+    <string name="assist_status_confirmed">Assist %1$d · confirmed by the bike</string>
+    <string name="assist_status_reapplied">Assist %1$d · set again on connecting, confirmed by the bike</string>
+    <string name="assist_status_reapplied_restart">Assist %1$d · set again after the bike switched on, confirmed by the bike</string>
+    <string name="assist_status_not_confirmed">Assist %1$d not confirmed. Tap %1$d to try again.</string>
+    <string name="assist_status_shown_only">The app shows this model’s assist level but can’t set it.</string>
+    <string name="assist_not_sent_bike_not_on">Not set: the bike wasn’t reporting that it was on. Tap a level to try again.</string>
+    <string name="assist_not_sent_not_connected">Not set: the bike wasn’t connected. Tap a level to try again.</string>
+    <string name="assist_not_sent_busy">Not set: another change was still being sent. Tap a level to try again.</string>
+    <string name="assist_not_sent_yet">Not set yet. Tap a level to set it.</string>
+    <string name="assist_about">Asks the bike to change its assist level. A level shows as set only once the bike confirms the command and its status shows the new level.</string>
+    <string name="assist_about_before_check">Once the bike is checked, the card shows its assist level and, where the app can set it, its levels.</string>
+    <string name="keep_assist_title">Keep this assist level</string>
+    <string name="keep_assist_info">About “Keep this assist level”</string>
+    <string name="keep_assist_detail">Set again after restarts and reconnections, at most once a minute, while the app is open, and only while the bike reads 0\u00A0km/h. A level changed on the bike’s display isn’t kept.</string>
+    <string name="keep_assist_detail_reconnect">Set again once each time the app connects to the bike, while the app is open, and only while the bike reads 0\u00A0km/h. A level changed on the bike’s display isn’t kept.</string>
+
+    <!-- Lights -->
+    <string name="lights_title">Lights</string>
+    <string name="lights_on">On</string>
+    <string name="lights_off">Off</string>
+    <string name="lights_unknown">Unknown</string>
+    <string name="lights_not_confirmed">Not confirmed. Tap to try again.</string>
+    <string name="lights_switching_on">Switching on…</string>
+    <string name="lights_switching_off">Switching off…</string>
+    <string name="lights_not_sent_bike_not_on">Not switched: the bike wasn’t reporting that it was on. Tap to try again.</string>
+    <string name="lights_not_sent_not_connected">Not switched: the bike wasn’t connected. Tap to try again.</string>
+    <string name="lights_not_sent_busy">Not switched: another change was still being sent. Tap to try again.</string>
+    <string name="lights_not_sent_yet">Not switched yet. Tap to switch the lights.</string>
+
+    <!-- Readings -->
+    <string name="readings_title">Readings</string>
+    <string name="reading_speed">Speed</string>
+    <string name="reading_max_speed">Max speed</string>
+    <!-- %1$.1f: a speed -->
+    <string name="reading_speed_value">%1$.1f\u00A0km/h</string>
+    <string name="odometer">Odometer</string>
+    <string name="odometer_value">%1$.1f\u00A0km</string>
+    <!-- %1$s: what the value is, %2$s: the value -->
+    <string name="reading_spoken">%1$s, %2$s</string>
+    <string name="footer_report">Report</string>
+
+    <!-- Speed warning -->
+    <string name="warning_title">Above the legal limit</string>
+    <string name="warning_title_strong">Well above the legal limit</string>
+    <string name="warning_body">In the EU, e-bikes must stop assisting at %2$d\u00A0km/h. Use %1$d\u00A0km/h only where it is legal, for example on private land. You ride at your own risk.</string>
+    <string name="warning_body_strong">In the EU, e-bikes must stop assisting at %2$d\u00A0km/h. %1$d\u00A0km/h is far above that: braking distances get much longer, and the motor, brakes and tyres are under much more stress. Use %1$d\u00A0km/h only where it is legal, for example on private land. You ride at your own risk.</string>
+    <string name="warning_dont_show_again">Don’t show again for %1$d\u00A0km/h</string>
+    <string name="warning_cancel">Cancel</string>
+    <string name="warning_set">Set %1$d\u00A0km/h</string>
+    <string name="warning_keep_detail">With “Keep this speed” on, the app sets %1$d\u00A0km/h again after each restart or reconnection (at most once a minute), while the app is open.</string>
+    <string name="warning_keep_detail_reconnect">With “Keep this speed” on, the app sets %1$d\u00A0km/h again each time it connects to the bike, while the app is open. After you switch the bike off and on, it doesn’t.</string>
+
+    <!-- Further readings -->
+    <string name="more_temperature">Temperature</string>
+    <string name="more_temperature_value">%1$d\u00A0°C</string>
+    <string name="more_battery_health">Battery health</string>
+    <string name="more_battery_health_value">%1$d%%</string>
+    <string name="more_ride_time">Total ride time</string>
+    <!-- %1$d: hours, %2$d: minutes -->
+    <string name="more_ride_time_value">%1$d\u00A0h %2$d\u00A0min</string>
+    <!-- Read out by screen readers. %1$s: the hours, %2$s: the minutes (both from the plurals below). -->
+    <string name="more_ride_time_spoken">%1$s %2$s</string>
+    <plurals name="more_ride_time_hours_spoken">
+        <item quantity="one">%1$d hour</item>
+        <item quantity="other">%1$d hours</item>
+    </plurals>
+    <plurals name="more_ride_time_minutes_spoken">
+        <item quantity="one">%1$d minute</item>
+        <item quantity="other">%1$d minutes</item>
+    </plurals>
+    <string name="more_voltage">Voltage</string>
+    <string name="more_voltage_value">%1$.1f\u00A0V</string>
+</resources>

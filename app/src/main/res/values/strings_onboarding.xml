@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Welcome -->
+    <string name="welcome_title">ENGWE Speed Tool</string>
+    <string name="welcome_unofficial_tag">Unofficial</string>
+    <string name="welcome_line_what">Change your e-bike’s speed limit with one tap, and see live ride data.</string>
+    <string name="welcome_line_unofficial">This app isn’t made or supported by ENGWE.</string>
+    <string name="welcome_line_default">25\u00A0km/h is the bike’s standard limit. You can go back to it with one tap.</string>
+    <string name="welcome_start">Get started</string>
+
+    <!-- Bluetooth explainer -->
+    <string name="bluetooth_title">Connect over Bluetooth</string>
+    <string name="bluetooth_why">The app uses Bluetooth only to talk to your bike.</string>
+    <string name="bluetooth_privacy">It doesn’t use your location and has no internet access. Nothing is shared unless you choose to share it.</string>
+    <string name="bluetooth_next">Next, Android asks whether the app may find and connect to nearby devices.</string>
+    <string name="bluetooth_denied">Without this permission the app can’t find your bike. You can allow it now.</string>
+    <string name="bluetooth_denied_permanently">Android won’t ask again. Allow “Nearby devices” for this app in its settings, then come back.</string>
+    <string name="find_bike_name">ENGWE bike</string>
+
+    <!-- Find your bike -->
+    <string name="find_title">Find your bike</string>
+    <string name="find_check_bike_on">Bike switched on</string>
+    <string name="find_check_app_closed">ENGWE app closed</string>
+    <string name="find_check_near">Phone near the bike</string>
+    <string name="find_searching">Searching for bikes…</string>
+    <plurals name="find_found">
+        <item quantity="one">%1$d bike found</item>
+        <item quantity="other">%1$d bikes found</item>
+    </plurals>
+    <string name="find_searching_note">Bikes can take up to 15\u00A0seconds to appear.</string>
+    <string name="find_connect">Connect</string>
+    <string name="find_paired">Paired with this phone</string>
+    <string name="find_not_listed">Don’t see your bike?</string>
+    <string name="find_several">More than one bike nearby? Switch the others off, or move away from them, then wait a moment: only yours stays listed.</string>
+
+    <!-- Connect and check -->
+    <string name="check_title">Checking your bike</string>
+    <string name="check_title_done">Check complete</string>
+    <string name="check_title_stopped">Check stopped</string>
+    <string name="check_restarted">The app was in the background, so the check started again.</string>
+    <string name="check_step_connected">Connection</string>
+    <string name="check_step_responds">Bike response</string>
+    <string name="check_step_model">Model check</string>
+    <string name="check_result_verified">Verified</string>
+    <string name="check_result_verified_detail">%1$s · a model tested by the project</string>
+    <string name="check_result_unverified">Unverified</string>
+    <string name="check_result_unverified_model">The project hasn’t tested this model yet.</string>
+    <string name="check_result_unverified_profile">%1$s · the project hasn’t verified this model yet.</string>
+
+    <!-- Done -->
+    <string name="done_title">All set</string>
+    <string name="done_saved">Your bike is saved as “%1$s”.</string>
+    <string name="done_rename_hint">You can rename it in Settings.</string>
+    <string name="done_open">Open my bike</string>
+</resources>

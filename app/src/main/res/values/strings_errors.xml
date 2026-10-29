@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_bluetooth_off_title">Bluetooth is off</string>
+    <string name="error_bluetooth_off_cause">The app needs Bluetooth to talk to your bike.</string>
+    <string name="error_no_permission_title">Bluetooth isn’t allowed</string>
+    <string name="error_no_permission_cause">The app needs the “Nearby devices” permission to find and talk to your bike.</string>
+    <string name="error_no_permission_settings_cause">Android won’t ask again. Allow “Nearby devices” for this app in its settings.</string>
+
+    <string name="error_not_found_title">Can’t find your bike</string>
+    <string name="error_not_found_cause">No ENGWE bike showed up nearby. Check these, then scan again.</string>
+
+    <string name="error_elsewhere_title">Your bike may be connected to another app or phone</string>
+    <string name="error_elsewhere_cause">A bike talks to one app at a time. Close the ENGWE app, or turn off Bluetooth on other phones nearby.</string>
+
+    <string name="error_incompatible_title">This bike doesn’t respond as expected</string>
+    <string name="error_incompatible_cause">It doesn’t answer like the bikes this app supports, so the app won’t send it anything.</string>
+
+    <string name="error_not_responding_title">Your bike stopped responding as expected</string>
+    <string name="error_not_responding_cause">The app sends it nothing. Switch the bike off and on, then try again.</string>
+
+    <string name="error_not_accepted_title">Accept the risks first</string>
+    <string name="error_not_accepted_cause">The app reads nothing from a bike until you’ve accepted the risks.</string>
+
+    <string name="error_not_confirmed_title">The bike didn’t confirm</string>
+    <string name="error_not_confirmed_cause">The bike didn’t answer within 2\u00A0seconds, so the app can’t tell whether the limit changed.</string>
+</resources>

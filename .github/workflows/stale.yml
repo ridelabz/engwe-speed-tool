@@ -1,0 +1,37 @@
+name: Stale issues
+
+# Reports still waiting for a session log are closed after a while; nothing else goes stale.
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+concurrency:
+  group: stale
+  cancel-in-progress: false
+
+jobs:
+  stale:
+    name: Stale
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/stale@4391f3da665fdf50b6810c1a66712fb9ba21aa93 # v11.0.0
+        with:
+          only-issue-labels: needs-logs
+          days-before-issue-stale: 30
+          days-before-issue-close: 14
+          days-before-pr-stale: -1
+          days-before-pr-close: -1
+          stale-issue-label: stale
+          close-issue-reason: not_planned
+          stale-issue-message: >-
+            This report has waited 30 days for its session log. It will be closed in 14 days unless the log
+            is attached (edit the issue) or someone comments.
+          close-issue-message: >-
+            Closed because the session log never arrived. Attach it and comment, and a maintainer can reopen
+            the report. This project is community-supported: there is no individual support.

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Legal and safety text, and the statements a rider accepts before first use. Changing anything here
+     needs a maintainer's review. -->
+<resources>
+    <string name="legal_title">Before you start</string>
+    <string name="legal_intro">Read each statement and tick it to continue.</string>
+    <string name="legal_intro_changed">These statements have changed. Read and tick each one again to continue.</string>
+    <string name="legal_statement_legal_limit">I understand that in the EU and many other countries, an e-bike must stop assisting at 25\u00A0km/h. Above that, it may legally be a moped that needs approval, registration, insurance, a licence and a helmet.</string>
+    <string name="legal_statement_where_legal">I will use settings above 25\u00A0km/h only where it is legal, for example on private land.</string>
+    <string name="legal_statement_responsibility">I understand that higher speeds increase the risk of accidents, injury and damage, and that I am solely responsible.</string>
+    <string name="legal_statement_warranty">I understand that changing the speed limit may void my warranty and affect my insurance.</string>
+    <string name="legal_statement_unofficial">I understand that this app is unofficial and not affiliated with ENGWE. It is provided “as is”, without warranty or liability (GPL-3.0, sections 15 and 16), and I use it at my own risk.</string>
+    <string name="legal_accept">I accept</string>
+    <string name="legal_accept_hint">Tick every statement to continue.</string>
+
+    <!-- The Legal & safety screen -->
+    <string name="legal_screen_title">Legal &amp; safety</string>
+    <string name="legal_accepted_on">You accepted these statements on %1$s (text version %2$d).</string>
+    <string name="legal_statement_number">%1$d.</string>
+    <string name="legal_caveat_title">Tested on one bike and firmware only</string>
+    <string name="legal_caveat">Speed changes have been tested only on the ENGWE E26 3.0 Pro with IoT firmware 218CAN. In those tests the limit went back to 25\u00A0km/h when the bike was switched off. On other models or firmware, a change might behave differently and could be permanent. Tap 25 when you’re done.</string>
+    <string name="legal_caveat_sheet_version">You can check your bike’s IoT firmware version in the ENGWE app.</string>
+    <string name="legal_caveat_sheet_next">I understand, continue</string>
+
+    <!-- About -->
+    <string name="legal_about_unofficial">Unofficial: not made by, endorsed by or affiliated with ENGWE.</string>
+    <string name="legal_about_copyright">Copyright © 2026 the ENGWE Speed Tool contributors.</string>
+    <string name="legal_about_licence">Free software under the GNU General Public License, version 3. It comes with absolutely no warranty; see the licence for details.</string>
+    <string name="legal_about_third_party">Icons: Material Symbols by Google. Libraries: Android Jetpack and Kotlin. Both under the Apache License 2.0.</string>
+
+    <!-- Raise this whenever the statements change: riders then accept them again. -->
+    <integer name="legal_text_version">1</integer>
+
+    <!-- The statements to accept, in this order. "I accept" is enabled only when every one is ticked. -->
+    <array name="legal_statements">
+        <item>@string/legal_statement_legal_limit</item>
+        <item>@string/legal_statement_where_legal</item>
+        <item>@string/legal_statement_responsibility</item>
+        <item>@string/legal_statement_warranty</item>
+        <item>@string/legal_statement_unofficial</item>
+    </array>
+</resources>

@@ -1,0 +1,79 @@
+# Changes to these paths need a maintainer's safety review before a test build is linked on a
+# pull request. The bot reads this file from main, never from the pull request.
+#
+# Syntax: one glob per line, relative to the repository root. `*` and `?` stay within one path
+# segment, `**` spans any number of directories. A line starting with `!` makes an exception.
+# The last matching line wins, and matching ignores case. CODEOWNERS mirrors this list (a test
+# keeps the two in step).
+
+# Repository automation, build logic, signing and scripts
+.github/**
+**/*.gradle*
+**/gradle.properties
+**/local.properties
+**/.gradle/**
+gradle/**
+gradlew*
+buildSrc/**
+build-logic/**
+scripts/**
+signing/**
+.gitattributes
+.gitmodules
+.editorconfig
+**/.kotlin/**
+**/lint.xml
+**/lint-baseline.xml
+
+# Shrinker rules and Java resources (embedded shrinker rules, service files)
+**/*.pro
+**/META-INF/**
+**/src/*/resources/**
+
+# Prebuilt and native code
+**/*.jar
+**/*.aar
+**/*.so
+**/*.dex
+**/*.apk
+**/*.aidl
+**/jniLibs/**
+**/cpp/**
+**/CMakeLists.txt
+
+# Manifests, and backup and data-extraction rules in every resource qualifier
+**/AndroidManifest.xml
+**/res/xml*/**
+
+# App name and launcher icon in every resource qualifier, and the marking of test builds
+**/res/mipmap*/**
+**/res/drawable*/ic_launcher*
+**/res/values*/app_name.xml
+**/res/values*/ic_launcher*.xml
+app/src/prTest/**
+app/src/main/res/values/test_build.xml
+app/src/main/kotlin/io/github/ridelabz/engwespeedtool/MainActivity.kt
+app/src/main/kotlin/io/github/ridelabz/engwespeedtool/TestBuildBanner.kt
+
+# Bike communication: commands, frames, decoding, identity, privacy and session logic; in the app, the
+# wiring that creates sessions and the storage of the bike's address and the rider's acceptance
+ble-android/**
+protocol/**
+session/**
+reporting/**
+app/src/main/kotlin/io/github/ridelabz/engwespeedtool/bike/**
+
+# Legal and safety text (with the unverified-bike acknowledgement), the screens where riders accept or
+# acknowledge it (and record that), and the screens that show it, including the firmware caveat
+LICENSE
+SAFETY.md
+**/res/values*/legal*.xml
+app/src/main/kotlin/io/github/ridelabz/engwespeedtool/ui/onboarding/RiskAcceptanceScreen.kt
+app/src/main/kotlin/io/github/ridelabz/engwespeedtool/ui/onboarding/UnverifiedAcknowledgementScreen.kt
+app/src/main/kotlin/io/github/ridelabz/engwespeedtool/ui/legal/**
+
+# Bike profile data stays open to contributors so that new bikes get test builds. The bot checks
+# the content instead: a profile marked verified, mapping the power flags, giving assist levels or lock control
+# needs review.
+!protocol/src/main/resources/profiles/*.json
+!protocol/src/main/resources/profiles/index.txt

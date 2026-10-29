@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Test builds keep both banner texts: the build's PR number is a constant, so resource shrinking would
+     otherwise drop the one this build doesn't show, and the APK check expects both. -->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@string/test_build_banner_pr,@string/test_build_banner_local" />

@@ -1,0 +1,394 @@
+public final class io/github/ridelabz/engwespeedtool/protocol/AssistLevel : java/lang/Enum {
+	public static final field Companion Lio/github/ridelabz/engwespeedtool/protocol/AssistLevel$Companion;
+	public static final field LEVEL_0 Lio/github/ridelabz/engwespeedtool/protocol/AssistLevel;
+	public static final field LEVEL_1 Lio/github/ridelabz/engwespeedtool/protocol/AssistLevel;
+	public static final field LEVEL_2 Lio/github/ridelabz/engwespeedtool/protocol/AssistLevel;
+	public static final field LEVEL_3 Lio/github/ridelabz/engwespeedtool/protocol/AssistLevel;
+	public static final field LEVEL_4 Lio/github/ridelabz/engwespeedtool/protocol/AssistLevel;
+	public static final field LEVEL_5 Lio/github/ridelabz/engwespeedtool/protocol/AssistLevel;
+	public static final field MAX I
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getLevel ()I
+	public static fun valueOf (Ljava/lang/String;)Lio/github/ridelabz/engwespeedtool/protocol/AssistLevel;
+	public static fun values ()[Lio/github/ridelabz/engwespeedtool/protocol/AssistLevel;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/AssistLevel$Companion {
+	public final fun of (I)Lio/github/ridelabz/engwespeedtool/protocol/AssistLevel;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/BikeClassifier {
+	public static final field INSTANCE Lio/github/ridelabz/engwespeedtool/protocol/BikeClassifier;
+	public final fun classify (Lio/github/ridelabz/engwespeedtool/protocol/ProtocolChecks;Lio/github/ridelabz/engwespeedtool/protocol/ProfileRegistry;)Lio/github/ridelabz/engwespeedtool/protocol/Classification;
+}
+
+public abstract class io/github/ridelabz/engwespeedtool/protocol/BikeCommand {
+	public static final field Companion Lio/github/ridelabz/engwespeedtool/protocol/BikeCommand$Companion;
+	public final fun toFrame ()Lio/github/ridelabz/engwespeedtool/protocol/OutgoingFrame;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/BikeCommand$Companion {
+	public final fun all ()Ljava/util/List;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/BikeCommand$ReadIdentity : io/github/ridelabz/engwespeedtool/protocol/BikeCommand {
+	public static final field INSTANCE Lio/github/ridelabz/engwespeedtool/protocol/BikeCommand$ReadIdentity;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/BikeCommand$SetAssistLevel : io/github/ridelabz/engwespeedtool/protocol/BikeCommand {
+	public fun <init> (Lio/github/ridelabz/engwespeedtool/protocol/AssistLevel;)V
+	public final fun component1 ()Lio/github/ridelabz/engwespeedtool/protocol/AssistLevel;
+	public final fun copy (Lio/github/ridelabz/engwespeedtool/protocol/AssistLevel;)Lio/github/ridelabz/engwespeedtool/protocol/BikeCommand$SetAssistLevel;
+	public static synthetic fun copy$default (Lio/github/ridelabz/engwespeedtool/protocol/BikeCommand$SetAssistLevel;Lio/github/ridelabz/engwespeedtool/protocol/AssistLevel;ILjava/lang/Object;)Lio/github/ridelabz/engwespeedtool/protocol/BikeCommand$SetAssistLevel;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLevel ()Lio/github/ridelabz/engwespeedtool/protocol/AssistLevel;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/BikeCommand$SetLights : io/github/ridelabz/engwespeedtool/protocol/BikeCommand {
+	public fun <init> (Z)V
+	public final fun component1 ()Z
+	public final fun copy (Z)Lio/github/ridelabz/engwespeedtool/protocol/BikeCommand$SetLights;
+	public static synthetic fun copy$default (Lio/github/ridelabz/engwespeedtool/protocol/BikeCommand$SetLights;ZILjava/lang/Object;)Lio/github/ridelabz/engwespeedtool/protocol/BikeCommand$SetLights;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getOn ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/BikeCommand$SetLocked : io/github/ridelabz/engwespeedtool/protocol/BikeCommand {
+	public fun <init> (Z)V
+	public final fun component1 ()Z
+	public final fun copy (Z)Lio/github/ridelabz/engwespeedtool/protocol/BikeCommand$SetLocked;
+	public static synthetic fun copy$default (Lio/github/ridelabz/engwespeedtool/protocol/BikeCommand$SetLocked;ZILjava/lang/Object;)Lio/github/ridelabz/engwespeedtool/protocol/BikeCommand$SetLocked;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLocked ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/BikeCommand$SetSpeedLimit : io/github/ridelabz/engwespeedtool/protocol/BikeCommand {
+	public fun <init> (Lio/github/ridelabz/engwespeedtool/protocol/SpeedLimit;)V
+	public final fun component1 ()Lio/github/ridelabz/engwespeedtool/protocol/SpeedLimit;
+	public final fun copy (Lio/github/ridelabz/engwespeedtool/protocol/SpeedLimit;)Lio/github/ridelabz/engwespeedtool/protocol/BikeCommand$SetSpeedLimit;
+	public static synthetic fun copy$default (Lio/github/ridelabz/engwespeedtool/protocol/BikeCommand$SetSpeedLimit;Lio/github/ridelabz/engwespeedtool/protocol/SpeedLimit;ILjava/lang/Object;)Lio/github/ridelabz/engwespeedtool/protocol/BikeCommand$SetSpeedLimit;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLimit ()Lio/github/ridelabz/engwespeedtool/protocol/SpeedLimit;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/BikeProfile {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;ZLio/github/ridelabz/engwespeedtool/protocol/StatusLayout;Ljava/util/List;Ljava/util/List;Ljava/lang/Integer;Z)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZLio/github/ridelabz/engwespeedtool/protocol/StatusLayout;Ljava/util/List;Ljava/util/List;Ljava/lang/Integer;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAssistLevels ()Ljava/lang/Integer;
+	public final fun getDisplayName ()Ljava/lang/String;
+	public final fun getEvidence ()Ljava/util/List;
+	public final fun getLockControl ()Z
+	public final fun getModelIdentity ()Ljava/lang/String;
+	public final fun getStatusLayout ()Lio/github/ridelabz/engwespeedtool/protocol/StatusLayout;
+	public final fun getTestedFirmware ()Ljava/util/List;
+	public final fun getVerified ()Z
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/Classification {
+	public final fun getLayout ()Lio/github/ridelabz/engwespeedtool/protocol/StatusLayout;
+	public final fun getModelIdentity ()Ljava/lang/String;
+	public final fun getProfile ()Lio/github/ridelabz/engwespeedtool/protocol/BikeProfile;
+	public final fun getUnverifiedReason ()Lio/github/ridelabz/engwespeedtool/protocol/UnverifiedReason;
+	public final fun getVerification ()Lio/github/ridelabz/engwespeedtool/protocol/Verification;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/Crc16Modbus {
+	public static final field INSTANCE Lio/github/ridelabz/engwespeedtool/protocol/Crc16Modbus;
+	public final fun compute ([BII)I
+	public static synthetic fun compute$default (Lio/github/ridelabz/engwespeedtool/protocol/Crc16Modbus;[BIIILjava/lang/Object;)I
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/FieldSpec {
+	public fun <init> (Lio/github/ridelabz/engwespeedtool/protocol/StatusField;IIDZ)V
+	public final fun getField ()Lio/github/ridelabz/engwespeedtool/protocol/StatusField;
+	public final fun getOffset ()I
+	public final fun getScale ()D
+	public final fun getSize ()I
+	public final fun getVerified ()Z
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/Frame {
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCommand ()I
+	public final fun getCrcComputed ()I
+	public final fun getCrcOk ()Z
+	public final fun getCrcReceived ()I
+	public final fun getPayload ()[B
+	public final fun getPayloadSize ()I
+	public final fun getRaw ()[B
+	public fun hashCode ()I
+	public final fun payloadByte (I)I
+	public final fun sameCommandAndPayload (Lio/github/ridelabz/engwespeedtool/protocol/Frame;)Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/FrameCodec {
+	public static final field INSTANCE Lio/github/ridelabz/engwespeedtool/protocol/FrameCodec;
+	public static final field MAX_PAYLOAD I
+	public static final field OVERHEAD I
+	public final fun decode ([BZ)Lio/github/ridelabz/engwespeedtool/protocol/Frame;
+	public static synthetic fun decode$default (Lio/github/ridelabz/engwespeedtool/protocol/FrameCodec;[BZILjava/lang/Object;)Lio/github/ridelabz/engwespeedtool/protocol/Frame;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/FrameException : java/lang/Exception {
+	public fun <init> (Ljava/lang/String;)V
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/FrameReassembler {
+	public static final field Companion Lio/github/ridelabz/engwespeedtool/protocol/FrameReassembler$Companion;
+	public static final field DEFAULT_MAX_PAYLOAD I
+	public fun <init> ()V
+	public fun <init> (I)V
+	public synthetic fun <init> (IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun feed ([B)Ljava/util/List;
+	public final fun flush ()Ljava/util/List;
+	public final fun getPending ()[B
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/FrameReassembler$Companion {
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/Hex {
+	public static final field INSTANCE Lio/github/ridelabz/engwespeedtool/protocol/Hex;
+	public final fun decode (Ljava/lang/String;)[B
+	public final fun encode ([B)Ljava/lang/String;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/IdentityParser {
+	public static final field INSTANCE Lio/github/ridelabz/engwespeedtool/protocol/IdentityParser;
+	public static final field MAX_MODEL_LENGTH I
+	public final fun isIdentityReply (Lio/github/ridelabz/engwespeedtool/protocol/Frame;)Z
+	public final fun modelOf (Lio/github/ridelabz/engwespeedtool/protocol/Frame;)Ljava/lang/String;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/Lights : java/lang/Enum {
+	public static final field OFF Lio/github/ridelabz/engwespeedtool/protocol/Lights;
+	public static final field ON Lio/github/ridelabz/engwespeedtool/protocol/Lights;
+	public static final field UNKNOWN Lio/github/ridelabz/engwespeedtool/protocol/Lights;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lio/github/ridelabz/engwespeedtool/protocol/Lights;
+	public static fun values ()[Lio/github/ridelabz/engwespeedtool/protocol/Lights;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/Loggable {
+	public final fun getHex ()Ljava/lang/String;
+	public final fun getMasked ()Z
+	public final fun getSize ()I
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/MalformedReason : java/lang/Enum {
+	public static final field BAD_CRC_WITH_INNER_FRAME Lio/github/ridelabz/engwespeedtool/protocol/MalformedReason;
+	public static final field FOOTER_MISMATCH Lio/github/ridelabz/engwespeedtool/protocol/MalformedReason;
+	public static final field LENGTH_OVER_LIMIT Lio/github/ridelabz/engwespeedtool/protocol/MalformedReason;
+	public static final field TRUNCATED Lio/github/ridelabz/engwespeedtool/protocol/MalformedReason;
+	public final fun getCode ()Ljava/lang/String;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lio/github/ridelabz/engwespeedtool/protocol/MalformedReason;
+	public static fun values ()[Lio/github/ridelabz/engwespeedtool/protocol/MalformedReason;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/OutgoingFrame {
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBytes ()[B
+	public final fun getCommand ()Lio/github/ridelabz/engwespeedtool/protocol/BikeCommand;
+	public fun hashCode ()I
+	public final fun isEchoedBy (Lio/github/ridelabz/engwespeedtool/protocol/Frame;)Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/PowerState : java/lang/Enum {
+	public static final field OFF Lio/github/ridelabz/engwespeedtool/protocol/PowerState;
+	public static final field ON Lio/github/ridelabz/engwespeedtool/protocol/PowerState;
+	public static final field POWERING_ON Lio/github/ridelabz/engwespeedtool/protocol/PowerState;
+	public static final field UNKNOWN Lio/github/ridelabz/engwespeedtool/protocol/PowerState;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lio/github/ridelabz/engwespeedtool/protocol/PowerState;
+	public static fun values ()[Lio/github/ridelabz/engwespeedtool/protocol/PowerState;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/ProfileException : java/lang/Exception {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/ProfileRegistry {
+	public static final field Companion Lio/github/ridelabz/engwespeedtool/protocol/ProfileRegistry$Companion;
+	public static final field REFERENCE_MODEL Ljava/lang/String;
+	public fun <init> (Ljava/util/List;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun find (Ljava/lang/String;)Lio/github/ridelabz/engwespeedtool/protocol/BikeProfile;
+	public final fun getProfiles ()Ljava/util/List;
+	public final fun getReferenceModel ()Ljava/lang/String;
+	public final fun getUnverifiedLayout ()Lio/github/ridelabz/engwespeedtool/protocol/StatusLayout;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/ProfileRegistry$Companion {
+	public final fun bundled ()Lio/github/ridelabz/engwespeedtool/protocol/ProfileRegistry;
+	public final fun parse (Ljava/lang/String;Ljava/lang/String;)Lio/github/ridelabz/engwespeedtool/protocol/BikeProfile;
+	public static synthetic fun parse$default (Lio/github/ridelabz/engwespeedtool/protocol/ProfileRegistry$Companion;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lio/github/ridelabz/engwespeedtool/protocol/BikeProfile;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/ProtocolChecks {
+	public fun <init> (ZZLjava/lang/String;)V
+	public final fun getModelIdentity ()Ljava/lang/String;
+	public final fun getServiceFound ()Z
+	public final fun getStatusFramesValid ()Z
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/Reading {
+	public fun <init> (Ljava/lang/Object;Z)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun component2 ()Z
+	public final fun copy (Ljava/lang/Object;Z)Lio/github/ridelabz/engwespeedtool/protocol/Reading;
+	public static synthetic fun copy$default (Lio/github/ridelabz/engwespeedtool/protocol/Reading;Ljava/lang/Object;ZILjava/lang/Object;)Lio/github/ridelabz/engwespeedtool/protocol/Reading;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()Ljava/lang/Object;
+	public final fun getVerified ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/Sanitiser {
+	public static final field INSTANCE Lio/github/ridelabz/engwespeedtool/protocol/Sanitiser;
+	public static final field MASK_BYTE B
+	public static final field NAME Ljava/lang/String;
+	public static final field STATUS_PAYLOAD_LENGTH I
+	public final fun advertisedName (Ljava/lang/String;)Ljava/lang/String;
+	public final fun commandLabel (Lio/github/ridelabz/engwespeedtool/protocol/Frame;)Ljava/lang/String;
+	public final fun incoming (Lio/github/ridelabz/engwespeedtool/protocol/Frame;)Lio/github/ridelabz/engwespeedtool/protocol/Loggable;
+	public final fun incoming (Lio/github/ridelabz/engwespeedtool/protocol/StreamEvent;)Lio/github/ridelabz/engwespeedtool/protocol/Loggable;
+	public final fun outgoing (Lio/github/ridelabz/engwespeedtool/protocol/OutgoingFrame;)Lio/github/ridelabz/engwespeedtool/protocol/Loggable;
+	public final fun text (Ljava/lang/String;)Ljava/lang/String;
+	public final fun uuid (Ljava/util/UUID;)Ljava/lang/String;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/SpeedLimit : java/lang/Enum {
+	public static final field Companion Lio/github/ridelabz/engwespeedtool/protocol/SpeedLimit$Companion;
+	public static final field KMH_16 Lio/github/ridelabz/engwespeedtool/protocol/SpeedLimit;
+	public static final field KMH_25 Lio/github/ridelabz/engwespeedtool/protocol/SpeedLimit;
+	public static final field KMH_32 Lio/github/ridelabz/engwespeedtool/protocol/SpeedLimit;
+	public static final field KMH_45 Lio/github/ridelabz/engwespeedtool/protocol/SpeedLimit;
+	public static final field LEGAL_LIMIT_KMH I
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getKmh ()I
+	public final fun isAboveLegalLimit ()Z
+	public static fun valueOf (Ljava/lang/String;)Lio/github/ridelabz/engwespeedtool/protocol/SpeedLimit;
+	public static fun values ()[Lio/github/ridelabz/engwespeedtool/protocol/SpeedLimit;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/SpeedLimit$Companion {
+	public final fun getBIKE_DEFAULT ()Lio/github/ridelabz/engwespeedtool/protocol/SpeedLimit;
+	public final fun ofKmh (I)Lio/github/ridelabz/engwespeedtool/protocol/SpeedLimit;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/StatusDecoder {
+	public static final field INSTANCE Lio/github/ridelabz/engwespeedtool/protocol/StatusDecoder;
+	public final fun decode (Lio/github/ridelabz/engwespeedtool/protocol/Frame;Lio/github/ridelabz/engwespeedtool/protocol/StatusLayout;)Lio/github/ridelabz/engwespeedtool/protocol/StatusReport;
+	public final fun isStatus (Lio/github/ridelabz/engwespeedtool/protocol/Frame;)Z
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/StatusField : java/lang/Enum {
+	public static final field ASSIST_LEVEL Lio/github/ridelabz/engwespeedtool/protocol/StatusField;
+	public static final field BATTERY Lio/github/ridelabz/engwespeedtool/protocol/StatusField;
+	public static final field BATTERY_HEALTH Lio/github/ridelabz/engwespeedtool/protocol/StatusField;
+	public static final field Companion Lio/github/ridelabz/engwespeedtool/protocol/StatusField$Companion;
+	public static final field LIGHTS Lio/github/ridelabz/engwespeedtool/protocol/StatusField;
+	public static final field MAX_SPEED Lio/github/ridelabz/engwespeedtool/protocol/StatusField;
+	public static final field ODOMETER Lio/github/ridelabz/engwespeedtool/protocol/StatusField;
+	public static final field POWER_FLAG_A Lio/github/ridelabz/engwespeedtool/protocol/StatusField;
+	public static final field POWER_FLAG_B Lio/github/ridelabz/engwespeedtool/protocol/StatusField;
+	public static final field RIDE_TIME Lio/github/ridelabz/engwespeedtool/protocol/StatusField;
+	public static final field SPEED Lio/github/ridelabz/engwespeedtool/protocol/StatusField;
+	public static final field TEMPERATURE Lio/github/ridelabz/engwespeedtool/protocol/StatusField;
+	public static final field VOLTAGE Lio/github/ridelabz/engwespeedtool/protocol/StatusField;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getKey ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lio/github/ridelabz/engwespeedtool/protocol/StatusField;
+	public static fun values ()[Lio/github/ridelabz/engwespeedtool/protocol/StatusField;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/StatusField$Companion {
+	public final fun ofKey (Ljava/lang/String;)Lio/github/ridelabz/engwespeedtool/protocol/StatusField;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/StatusLayout {
+	public static final field Companion Lio/github/ridelabz/engwespeedtool/protocol/StatusLayout$Companion;
+	public static final field MAX_PAYLOAD_LENGTH I
+	public fun <init> (ILjava/util/List;)V
+	public final fun asUnverified ()Lio/github/ridelabz/engwespeedtool/protocol/StatusLayout;
+	public final fun getFields ()Ljava/util/List;
+	public final fun getPayloadLength ()I
+	public final fun spec (Lio/github/ridelabz/engwespeedtool/protocol/StatusField;)Lio/github/ridelabz/engwespeedtool/protocol/FieldSpec;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/StatusLayout$Companion {
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/StatusReport {
+	public fun <init> (Lio/github/ridelabz/engwespeedtool/protocol/Reading;Lio/github/ridelabz/engwespeedtool/protocol/Reading;Lio/github/ridelabz/engwespeedtool/protocol/Reading;Lio/github/ridelabz/engwespeedtool/protocol/Reading;Lio/github/ridelabz/engwespeedtool/protocol/Reading;Lio/github/ridelabz/engwespeedtool/protocol/Reading;Lio/github/ridelabz/engwespeedtool/protocol/Reading;Lio/github/ridelabz/engwespeedtool/protocol/Reading;Lio/github/ridelabz/engwespeedtool/protocol/Reading;Lio/github/ridelabz/engwespeedtool/protocol/Reading;Lio/github/ridelabz/engwespeedtool/protocol/Reading;)V
+	public final fun getAssistLevel ()Lio/github/ridelabz/engwespeedtool/protocol/Reading;
+	public final fun getBatteryHealthRaw ()Lio/github/ridelabz/engwespeedtool/protocol/Reading;
+	public final fun getBatteryPercent ()Lio/github/ridelabz/engwespeedtool/protocol/Reading;
+	public final fun getLights ()Lio/github/ridelabz/engwespeedtool/protocol/Reading;
+	public final fun getMaxSpeedKmh ()Lio/github/ridelabz/engwespeedtool/protocol/Reading;
+	public final fun getOdometerKm ()Lio/github/ridelabz/engwespeedtool/protocol/Reading;
+	public final fun getPower ()Lio/github/ridelabz/engwespeedtool/protocol/Reading;
+	public final fun getRideTimeMinutes ()Lio/github/ridelabz/engwespeedtool/protocol/Reading;
+	public final fun getSpeedKmh ()Lio/github/ridelabz/engwespeedtool/protocol/Reading;
+	public final fun getTemperatureRaw ()Lio/github/ridelabz/engwespeedtool/protocol/Reading;
+	public final fun getVoltageV ()Lio/github/ridelabz/engwespeedtool/protocol/Reading;
+}
+
+public abstract class io/github/ridelabz/engwespeedtool/protocol/StreamEvent {
+	public synthetic fun <init> ([BLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getData ()[B
+	public abstract fun getKind ()Ljava/lang/String;
+	public final fun getSize ()I
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/StreamEvent$Decoded : io/github/ridelabz/engwespeedtool/protocol/StreamEvent {
+	public final fun getFrame ()Lio/github/ridelabz/engwespeedtool/protocol/Frame;
+	public fun getKind ()Ljava/lang/String;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/StreamEvent$Incomplete : io/github/ridelabz/engwespeedtool/protocol/StreamEvent {
+	public fun getKind ()Ljava/lang/String;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/StreamEvent$Malformed : io/github/ridelabz/engwespeedtool/protocol/StreamEvent {
+	public fun getKind ()Ljava/lang/String;
+	public final fun getReason ()Lio/github/ridelabz/engwespeedtool/protocol/MalformedReason;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/StreamEvent$Unframed : io/github/ridelabz/engwespeedtool/protocol/StreamEvent {
+	public fun getKind ()Ljava/lang/String;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/UnverifiedReason : java/lang/Enum {
+	public static final field PROFILE_NOT_VERIFIED Lio/github/ridelabz/engwespeedtool/protocol/UnverifiedReason;
+	public static final field UNKNOWN_MODEL Lio/github/ridelabz/engwespeedtool/protocol/UnverifiedReason;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lio/github/ridelabz/engwespeedtool/protocol/UnverifiedReason;
+	public static fun values ()[Lio/github/ridelabz/engwespeedtool/protocol/UnverifiedReason;
+}
+
+public final class io/github/ridelabz/engwespeedtool/protocol/Verification : java/lang/Enum {
+	public static final field INCOMPATIBLE Lio/github/ridelabz/engwespeedtool/protocol/Verification;
+	public static final field UNVERIFIED Lio/github/ridelabz/engwespeedtool/protocol/Verification;
+	public static final field VERIFIED Lio/github/ridelabz/engwespeedtool/protocol/Verification;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lio/github/ridelabz/engwespeedtool/protocol/Verification;
+	public static fun values ()[Lio/github/ridelabz/engwespeedtool/protocol/Verification;
+}
+

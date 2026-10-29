@@ -1,0 +1,40 @@
+name: Issue triage
+
+# Labels new and edited issues from their form answers, asks once for a missing session log or model
+# identity, and points questions to Discussions. It runs a script from main that reads the issue as data
+# from the event file: nothing the issue says is placed in an expression or a shell command.
+
+on:
+  issues:
+    types: [opened, edited, reopened, labeled]
+
+permissions:
+  contents: read
+  issues: write
+
+defaults:
+  run:
+    shell: bash # -eo pipefail
+
+jobs:
+  triage:
+    name: Triage
+    # Of the label events, only the question label needs anything.
+    if: github.event.action != 'labeled' || github.event.label.name == 'question'
+    # Label events have their own queue, so that an edit can't push a question label's run out of it.
+    concurrency:
+      group: issue-triage-${{ github.event.issue.number }}-${{ github.event.action == 'labeled' }}
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+          sparse-checkout: .github
+      - name: Triage the issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 -I .github/scripts/issue_triage.py

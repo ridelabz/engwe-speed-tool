@@ -1,0 +1,27 @@
+name: An idea
+description: Something the app could do better.
+title: "[Idea] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ideas are welcome. Questions are better asked in Discussions.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is the problem or the wish?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like the app to do?
+  - type: textarea
+    id: safety
+    attributes:
+      label: Anything about safety or the law to keep in mind?
+  - type: input
+    id: app_version
+    attributes:
+      label: App version (filled in by the app)

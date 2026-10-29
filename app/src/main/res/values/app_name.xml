@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The app's name on the phone. Kept in its own file: test builds replace it, and no other resource
+     file or qualifier may override it. -->
+<resources>
+    <string name="app_name">ENGWE Speed Tool (Unofficial)</string>
+    <!-- Under the icon on the home screen, where the full name would be cut off. -->
+    <string name="launcher_name" translatable="false">Speed Tool</string>
+</resources>

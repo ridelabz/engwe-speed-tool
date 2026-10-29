@@ -1,0 +1,96 @@
+name: Test build
+
+# Builds the installable test APK for a pull request, in a run of its own. Nothing from the pull request
+# runs here except the compilers: no tests, no lint and no Gradle cache, so neither test code in another
+# job nor a poisoned cache can swap the APK. Python runs isolated (-I), so a module file in the pull
+# request can't shadow the standard library. The comment workflow links the APK only after checking
+# this run, the CI run and the changed files.
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash # -eo pipefail
+
+concurrency:
+  group: test-build-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  apk:
+    name: Test APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+        with:
+          cache-disabled: true
+          validate-wrappers: true
+      - name: Only the Bluetooth module may reach Bluetooth GATT (source)
+        run: python3 -I scripts/check_source_boundaries.py
+      - name: Build
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        # The pure-Kotlin modules are compiled too (compilers only), so the bytecode check sees all of them.
+        run: |
+          ./gradlew :app:assemblePrTest :protocol:classes :session:classes :reporting:classes \
+            -PprNumber="$PR_NUMBER" --no-build-cache --console=plain
+      - name: Check the APK
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BUILT_SHA: ${{ github.sha }}
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          mkdir -p test-apk pr-metadata
+          APK="test-apk/engwe-speed-tool-test-pr${PR_NUMBER}.apk"
+          cp app/build/outputs/apk/prTest/*.apk "$APK"
+          python3 -I scripts/check_apk_manifest.py --release "$APK"
+          python3 -I scripts/check_apk_banner.py "$APK"
+          python3 -I scripts/check_bytecode.py
+          BT="$ANDROID_HOME/build-tools/$(ls "$ANDROID_HOME/build-tools" | sort -V | tail -1)"
+          "$BT/aapt2" dump badging "$APK" > badging.txt
+          grep -q "^package: name='io.github.ridelabz.engwespeedtool.test' " badging.txt
+          grep -qx "application-label:'TEST ENGWE Speed Tool'" badging.txt
+          if grep -E "^application-label" badging.txt | grep -vE ":'TEST ENGWE Speed Tool'$"; then
+            echo "a localised label isn't the test label"; exit 1
+          fi
+          grep -qE "^launchable-activity: .*label='TEST Speed Tool'" badging.txt || { echo "home-screen label isn't 'TEST Speed Tool'"; exit 1; }
+          if grep -q "application-debuggable" badging.txt; then echo "test APK is debuggable"; exit 1; fi
+          "$BT/apksigner" verify --print-certs "$APK" > signer.txt
+          cat signer.txt
+          DIGESTS="$(grep -oE 'certificate SHA-256 digest: [0-9a-f]+' signer.txt | sort -u)"
+          test "$DIGESTS" = "certificate SHA-256 digest: f0e44191489e22541ecda0d7e21b79dcef054cea16b83a14958693d6fbf9327e"
+          (cd test-apk && sha256sum -- *.apk > SHA256SUMS && cat SHA256SUMS)
+          python3 -I - <<'PY'
+          import json, os
+          sha = open("test-apk/SHA256SUMS").read().split()[0]
+          meta = {"schema": 2, "pr": int(os.environ["PR_NUMBER"]), "head_sha": os.environ["HEAD_SHA"],
+                  "built_sha": os.environ["BUILT_SHA"], "base_ref": os.environ["BASE_REF"], "apk_sha256": sha}
+          json.dump(meta, open("pr-metadata/pr-metadata.json", "w"))
+          PY
+      - name: Upload test APK
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: test-apk-pr${{ github.event.pull_request.number }}
+          path: test-apk/
+          retention-days: 30
+          if-no-files-found: error
+      - name: Upload PR metadata
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: pr-metadata
+          path: pr-metadata/pr-metadata.json
+          retention-days: 30
+          if-no-files-found: error

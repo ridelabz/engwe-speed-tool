@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and discussion
+    url: https://github.com/ridelabz/engwe-speed-tool/discussions
+    about: Ask and answer questions; the project has no individual support.
+  - name: Safety and the law
+    url: https://github.com/ridelabz/engwe-speed-tool/blob/main/SAFETY.md
+    about: Read this before changing your bike's speed limit.
+  - name: Which bikes work
+    url: https://github.com/ridelabz/engwe-speed-tool/blob/main/COMPATIBILITY.md
+    about: Models and firmware the project has verified, and how a model gets verified.
