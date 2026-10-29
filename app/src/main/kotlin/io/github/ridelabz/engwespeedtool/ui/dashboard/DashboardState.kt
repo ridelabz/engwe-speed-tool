@@ -2,7 +2,6 @@ package io.github.ridelabz.engwespeedtool.ui.dashboard
 
 import io.github.ridelabz.engwespeedtool.protocol.SpeedLimit
 import io.github.ridelabz.engwespeedtool.protocol.Verification
-import java.time.Instant
 
 /** How the app is connected to the saved bike. */
 enum class Connection {
@@ -144,10 +143,9 @@ sealed interface SpeedLimitStatus {
         val reapply: Reapply? = null,
     ) : SpeedLimitStatus
 
-    /** The bike echoed the command at [at]. */
+    /** The bike echoed the command. */
     data class Confirmed(
         val kmh: Int,
-        val at: Instant,
         val reapply: Reapply? = null,
     ) : SpeedLimitStatus
 

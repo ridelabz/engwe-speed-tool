@@ -20,7 +20,6 @@ import io.github.ridelabz.engwespeedtool.R
 import io.github.ridelabz.engwespeedtool.protocol.Verification
 import io.github.ridelabz.engwespeedtool.testing.PHONE
 import io.github.ridelabz.engwespeedtool.testing.ScreenRule
-import io.github.ridelabz.engwespeedtool.ui.dashboard.SampleDashboard.at
 import io.github.ridelabz.engwespeedtool.ui.dashboard.SampleDashboard.state
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -48,8 +47,8 @@ class HonestWordingTest {
             SpeedLimitStatus.Sending(32),
             SpeedLimitStatus.Sending(32, Reapply.RESTART),
             SpeedLimitStatus.Sending(32, Reapply.RECONNECT),
-            SpeedLimitStatus.Confirmed(32, at),
-            SpeedLimitStatus.Confirmed(25, at),
+            SpeedLimitStatus.Confirmed(32),
+            SpeedLimitStatus.Confirmed(25),
             SpeedLimitStatus.NotConfirmed(32),
             SpeedLimitStatus.BikeRestarted,
         )
@@ -290,7 +289,7 @@ class HonestWordingTest {
     @Test
     fun theSpeedCardLeavesTheConnectionToTheStatusCardAndSaysNothingWithoutNews() {
         show()
-        val confirmed = text(R.string.speed_status_active, 32, "").substringBefore(" · ")
+        val news = text(R.string.speed_status_not_confirmed, 32)
         for (connection in Connection.entries) {
             // Nothing sent, nothing seen: no line, and no room for one.
             current = state(Verification.VERIFIED, status = SpeedLimitStatus.Unknown, connection = connection)
@@ -308,9 +307,37 @@ class HonestWordingTest {
                 abs(speedGap - assistGap) < 1f,
             )
             // News shows only while connected; the state at the top says the rest.
-            current = state(Verification.VERIFIED, status = SpeedLimitStatus.Confirmed(32, at), connection = connection)
+            current = state(Verification.VERIFIED, status = SpeedLimitStatus.NotConfirmed(32), connection = connection)
             screen.compose.waitForIdle()
-            assertTrue("$connection", shows(confirmed) == (connection == Connection.CONNECTED))
+            assertTrue("$connection", shows(news) == (connection == Connection.CONNECTED))
+        }
+    }
+
+    /** The room between the speed boxes and the keep switch, in pixels, wherever they are laid out. */
+    private fun speedGap(): Float {
+        val box = edges(hasContentDescription(text(R.string.speed_chip_label, 25)))
+        val keep = edges(hasText(text(R.string.keep_speed_title)))
+        return keep.first - box.second
+    }
+
+    @Test
+    fun aSpeedTheBikeConfirmedShowsOnItsBoxWithoutALine() {
+        show()
+        current = state(Verification.VERIFIED, status = SpeedLimitStatus.Unknown)
+        screen.compose.waitForIdle()
+        val none = speedGap()
+        // Restoring 25 needs no caveat, on an untested model either.
+        for ((verification, kmh, claim) in listOf(
+            Triple(Verification.VERIFIED, 32, R.string.speed_chip_active),
+            Triple(Verification.VERIFIED, 25, R.string.speed_chip_active),
+            Triple(Verification.UNVERIFIED, 25, R.string.speed_chip_confirmed),
+        )) {
+            current = state(verification, status = SpeedLimitStatus.Confirmed(kmh))
+            screen.compose.waitForIdle()
+            assertTrue("$verification $kmh: no line, and no room for one", abs(speedGap() - none) < 1f)
+            screen.compose
+                .onNode(hasContentDescription(text(R.string.speed_chip_label, kmh)) and stateStartsWith(text(claim)))
+                .assertExists()
         }
     }
 
@@ -391,7 +418,7 @@ class HonestWordingTest {
 
     @Test
     fun theExplanationsOfAnUnverifiedBikeNeverQuoteTheTests() {
-        current = state(Verification.UNVERIFIED, status = SpeedLimitStatus.Confirmed(32, at))
+        current = state(Verification.UNVERIFIED, status = SpeedLimitStatus.Confirmed(32))
         show()
         val verifiedOnly =
             listOf(
@@ -440,7 +467,7 @@ class HonestWordingTest {
     @Test
     fun aBikeThatIsOffOrLockedSaysSoAndNothingIsActive() {
         for (verification in listOf(Verification.VERIFIED, Verification.UNVERIFIED)) {
-            current = state(verification, status = SpeedLimitStatus.Confirmed(32, at), connection = Connection.BIKE_OFF)
+            current = state(verification, status = SpeedLimitStatus.Confirmed(32), connection = Connection.BIKE_OFF)
             if (verification == Verification.VERIFIED) show() else screen.compose.waitForIdle()
             assertTrue("$verification", shows(text(R.string.connection_bike_off), substring = false))
             // Off may also be a lock: the app says it can't tell, and never "On".
@@ -509,14 +536,19 @@ class HonestWordingTest {
 
     @Test
     fun anUnverifiedBikesConfirmedSpeedSaysItMayNotReset() {
-        // That it may not reset, and how to go back: the footer no longer says it.
-        val caveat = text(R.string.speed_status_confirmed_unverified, 32, "", 25).substringAfter(". ")
-        check(caveat.endsWith(text(R.string.speed_status_confirmed_unverified, 32, "", 25).substringAfter(": ")))
-        check(caveat.isNotBlank())
-        current = state(Verification.UNVERIFIED, status = SpeedLimitStatus.Confirmed(32, at))
+        // That it may not reset, and how to go back, under the confirmed box: nothing else on the card says it.
+        val caveat = text(R.string.speed_status_confirmed_unverified, 25)
+        check(caveat.endsWith(": tap 25 to restore."))
+        current = state(Verification.UNVERIFIED, status = SpeedLimitStatus.Confirmed(32))
         show()
-        assertTrue(shows(caveat))
-        current = state(Verification.VERIFIED, status = SpeedLimitStatus.Confirmed(32, at))
+        assertTrue(shows(caveat, substring = false))
+        current = current.copy(connection = Connection.BIKE_OFF)
+        screen.compose.waitForIdle()
+        assertTrue("no line while the bike isn't connected", !shows(caveat))
+        current = state(Verification.UNVERIFIED, status = SpeedLimitStatus.Confirmed(25))
+        screen.compose.waitForIdle()
+        assertTrue("not for the bike's default", !shows(caveat))
+        current = state(Verification.VERIFIED, status = SpeedLimitStatus.Confirmed(32))
         screen.compose.waitForIdle()
         assertTrue("not on the tested model", !shows(caveat))
     }

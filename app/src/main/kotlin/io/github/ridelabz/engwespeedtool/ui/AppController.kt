@@ -81,7 +81,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.Instant
 import java.time.LocalDate
 import java.util.Locale
 import kotlin.time.Duration
@@ -101,8 +100,6 @@ class AppController(
     /** How every found bike is named on screen: the rest of an advertised name comes from its address. */
     private val bikeLabel: String,
     private val nothingFoundAfter: Duration = 20.seconds,
-    /** The time of day a confirmation is shown with. */
-    private val clock: () -> Instant = Instant::now,
     /** Where the session log is written to storage, off the main thread. */
     private val storage: CoroutineDispatcher = Dispatchers.IO,
     /** The phone's Downloads, where saved logs go; null: none, so the file picker opens instead. */
@@ -186,10 +183,9 @@ class AppController(
     private val keepAssistShown: Boolean get() = if (demo) demoKeepAssist else stored.keepAssist
     private val keepAssistOn: Boolean get() = if (demo) demoKeepAssist else saved.keepAssist
 
-    // The limit as the session reports it, with when the app saw it confirmed, and whether the app set a
-    // speed on this connection (a restart then isn't the bike's default "with nothing set").
+    // The limit as the session reports it, and whether the app set a speed on this connection (a restart then
+    // isn't the bike's default "with nothing set").
     private var limitSeen: LimitState = LimitState.Unknown
-    private var confirmedAt: Instant = Instant.EPOCH
     private var applied = false
     var report: ReportRequest? by mutableStateOf(null)
         private set
@@ -1058,7 +1054,6 @@ class AppController(
                     if (limit !== limitSeen) {
                         // A "not sent" note belongs to the state it was said in.
                         notSent = null
-                        if (limit is LimitState.Confirmed) confirmedAt = clock()
                         // On an unverified bike, a speed other than the default that the rider set (not a
                         // re-apply): the next app open asks how it worked, if the rider offered to report results.
                         val bike = runBike
@@ -1113,7 +1108,7 @@ class AppController(
                                     choices = SPEEDS,
                                     status =
                                         if (connection == Connection.CONNECTED) {
-                                            BikeUi.limit(limit, verified, connectionTrusts(), applied, confirmedAt)
+                                            BikeUi.limit(limit, verified, connectionTrusts(), applied)
                                         } else {
                                             SpeedLimitStatus.Unknown
                                         },

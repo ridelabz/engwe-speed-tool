@@ -37,7 +37,9 @@ The app's look lives in `app/src/main/kotlin/io/github/ridelabz/engwespeedtool/u
   locked; then the state pill and the verification chip), any connection problem as a card of its own, the
   battery as a full-width gauge in 5 cells, the speed limit, the assist level, the lights and the readings.
   Each card has at most one line of status, shown only when there is something to say; its ⓘ opens a small
-  sheet with the explanation. The cards keep their place whatever the connection: while the bike isn't
+  sheet with the explanation. A speed the bike confirmed shows on its box alone (green, with a ✓; screen
+  readers hear the box when it turns confirmed), with a line under it only on an untested model, which says
+  the speed may not reset. The cards keep their place whatever the connection: while the bike isn't
   connected their controls are greyed out and disabled, and the bike's state at the top says why (screen
   readers hear it when it changes).
 - **Names**: the home screen shows "Speed Tool" under the icon, and the dashboard's top bar shows the same

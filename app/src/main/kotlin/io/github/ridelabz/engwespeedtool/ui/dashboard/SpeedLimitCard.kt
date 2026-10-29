@@ -25,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -32,7 +33,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -51,8 +51,6 @@ import io.github.ridelabz.engwespeedtool.ui.theme.NumberStyle
 import io.github.ridelabz.engwespeedtool.ui.theme.Spacing
 import io.github.ridelabz.engwespeedtool.ui.theme.SpeedToolTheme
 import io.github.ridelabz.engwespeedtool.ui.theme.TouchTargets
-import java.time.Instant
-import java.util.Date
 
 /** How one speed choice looks right now. */
 internal enum class ChipLook { PLAIN, DEFAULT, SENDING, ACTIVE, NOT_CONFIRMED }
@@ -61,10 +59,11 @@ private const val DIMMED = 0.38f
 private const val MOTION_MS = 200
 
 /**
- * The speed-limit card, the dashboard's main control: one tap on a speed applies it. A line under the boxes
- * says what the app knows when there is news (a speed sent, confirmed or not, a restart), and no more: the bike
- * can't report its limit, and while it isn't connected no choice is shown as active. Its ⓘ explains the rest;
- * speeds above the legal limit carry their mark on the box.
+ * The speed-limit card, the dashboard's main control: one tap on a speed applies it. The box of a speed the
+ * bike confirmed shows it (green, with a ✓); a line under the boxes says what else the app knows when there is
+ * news (a speed being sent or not confirmed, a restart), and no more: the bike can't report its limit, and while
+ * it isn't connected no choice is shown as active. Its ⓘ explains the rest; speeds above the legal limit carry
+ * their mark on the box.
  */
 @Composable
 fun SpeedLimitCard(
@@ -125,6 +124,7 @@ private fun SpeedChoices(
 ) {
     val status = state.status
     val sending = status is SpeedLimitStatus.Sending
+    val announce = newlyConfirmed(status)
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(Spacing.s),
@@ -136,6 +136,7 @@ private fun SpeedChoices(
                 look = look,
                 verified = verified,
                 enabled = connected && !sending,
+                announce = announce && look == ChipLook.ACTIVE,
                 modifier =
                     Modifier
                         .weight(1f)
@@ -144,6 +145,19 @@ private fun SpeedChoices(
             )
         }
     }
+}
+
+/**
+ * Whether [status] is a confirmation the card didn't show before: no line says it in words, so the confirmed box
+ * is then read out, once. A speed confirmed before the card showed (back from another screen) isn't.
+ */
+@Composable
+private fun newlyConfirmed(status: SpeedLimitStatus): Boolean {
+    val shown = remember { arrayOf(status) }
+    // Not only after a "Sending" the card showed: a quick echo may come within one frame.
+    val confirmed = remember(status) { status is SpeedLimitStatus.Confirmed && status != shown[0] }
+    SideEffect { shown[0] = status }
+    return confirmed
 }
 
 private fun notSentText(reason: NotSent): Int =
@@ -202,6 +216,8 @@ private fun SpeedChip(
     enabled: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    /** Read out when its state changes: the speed the bike just confirmed. */
+    announce: Boolean = false,
 ) {
     val colours = MaterialTheme.colorScheme
     val statusColours = SpeedToolTheme.status
@@ -284,6 +300,7 @@ private fun SpeedChip(
                     role = Role.Button
                     contentDescription = label
                     if (stateText.isNotEmpty()) stateDescription = stateText
+                    if (announce) liveRegion = LiveRegionMode.Polite
                     if (enabled) {
                         onClick(label = action) {
                             onClick()
@@ -444,12 +461,12 @@ private fun statusLine(
         }
 
         is SpeedLimitStatus.Confirmed -> {
-            val time = formatTime(status.at)
             if (verified || status.kmh == BIKE_DEFAULT_KMH) {
-                stringResource(R.string.speed_status_active, status.kmh, time)
+                // The box says it: green, with a ✓, read out as Active (Confirmed on an untested model).
+                null
             } else {
-                // How long it lasts on an untested model isn't known: said on the line itself.
-                stringResource(R.string.speed_status_confirmed_unverified, status.kmh, time, BIKE_DEFAULT_KMH)
+                // How long it lasts on an untested model isn't known: said under the box.
+                stringResource(R.string.speed_status_confirmed_unverified, BIKE_DEFAULT_KMH)
             }
         }
 
@@ -478,18 +495,6 @@ private fun restartedLine(
         verified -> stringResource(R.string.speed_status_restarted_unsure, BIKE_DEFAULT_KMH)
         else -> stringResource(R.string.speed_status_restarted_unverified, BIKE_DEFAULT_KMH)
     }
-
-/** A time of day in the phone's format (12 or 24 hours) and time zone. */
-@Composable
-private fun formatTime(time: Instant): String {
-    val context = LocalContext.current
-    val format =
-        remember(context) {
-            android.text.format.DateFormat
-                .getTimeFormat(context)
-        }
-    return format.format(Date.from(time))
-}
 
 /** A compact "keep" switch: its title and the switch, with its ⓘ outside the switch's touch area. */
 @Composable

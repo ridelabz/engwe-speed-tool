@@ -1,19 +1,9 @@
 package io.github.ridelabz.engwespeedtool.ui.dashboard
 
 import io.github.ridelabz.engwespeedtool.protocol.Verification
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneId
 
 /** Dashboard states for screen tests. */
 object SampleDashboard {
-    val at: Instant =
-        LocalDate
-            .of(2026, 10, 15)
-            .atTime(12, 32)
-            .atZone(ZoneId.systemDefault())
-            .toInstant()
-
     fun state(
         verification: Verification = Verification.VERIFIED,
         status: SpeedLimitStatus = SpeedLimitStatus.BikeDefault,

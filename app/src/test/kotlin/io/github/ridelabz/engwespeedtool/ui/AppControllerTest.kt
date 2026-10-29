@@ -56,7 +56,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import java.io.File
-import java.time.Instant
 import java.time.LocalDate
 
 /** The app's state on simulated bikes behind the real session, as the screens see it. */
@@ -96,13 +95,9 @@ class AppControllerTest {
                 scope.backgroundScope,
                 services,
                 bikeLabel = "ENGWE bike",
-                clock = ::at,
                 storage = StandardTestDispatcher(scope.testScheduler),
                 downloads = downloads,
             )
-
-        /** The time the controller's clock always shows. */
-        fun at(): Instant = Instant.parse("2026-10-16T10:30:00Z")
 
         /** What the risk-acceptance screen records. */
         fun accept() = services.acceptRisk(LocalDate.of(2026, 10, 15))
@@ -704,7 +699,7 @@ class AppControllerTest {
             s.onDashboard()
             s.controller.applySpeed(25)
             assertNull(s.controller.warning)
-            s.until { s.controller.dashboard.speedLimit.status == SpeedLimitStatus.Confirmed(25, s.at(), null) }
+            s.until { s.controller.dashboard.speedLimit.status == SpeedLimitStatus.Confirmed(25) }
             assertEquals(listOf(25), s.near.speeds())
         }
 
@@ -2045,7 +2040,6 @@ class AppControllerTest {
                     s.scope.backgroundScope,
                     s.services,
                     bikeLabel = "ENGWE bike",
-                    clock = s::at,
                     storage = StandardTestDispatcher(s.scope.testScheduler),
                 )
             assertEquals(RideTest(32, log), next.rideTest)
@@ -2110,7 +2104,6 @@ class AppControllerTest {
                     s.scope.backgroundScope,
                     s.services,
                     bikeLabel = "ENGWE bike",
-                    clock = s::at,
                     storage = StandardTestDispatcher(s.scope.testScheduler),
                 )
             next.rideTestLater()
@@ -2121,7 +2114,6 @@ class AppControllerTest {
                     s.scope.backgroundScope,
                     s.services,
                     bikeLabel = "ENGWE bike",
-                    clock = s::at,
                     storage = StandardTestDispatcher(s.scope.testScheduler),
                 )
             again.rideTestDone(null)
@@ -2323,7 +2315,6 @@ class AppControllerTest {
                     s.scope.backgroundScope,
                     s.services,
                     bikeLabel = "ENGWE bike",
-                    clock = s::at,
                     storage = StandardTestDispatcher(s.scope.testScheduler),
                 )
             next.rideTestDone(RideTest(32, 999, RideTestStop.YES))

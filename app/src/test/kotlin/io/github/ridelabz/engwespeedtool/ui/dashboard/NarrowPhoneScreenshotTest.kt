@@ -8,7 +8,6 @@ import io.github.ridelabz.engwespeedtool.R
 import io.github.ridelabz.engwespeedtool.protocol.Verification
 import io.github.ridelabz.engwespeedtool.testing.ScreenRule
 import io.github.ridelabz.engwespeedtool.testing.ScreenVariant
-import io.github.ridelabz.engwespeedtool.ui.dashboard.SampleDashboard.at
 import io.github.ridelabz.engwespeedtool.ui.dashboard.SampleDashboard.state
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -32,7 +31,7 @@ class NarrowPhoneScreenshotTest {
     fun fourSpeeds() {
         screen.setScreen {
             DashboardScreen(
-                state(choices = listOf(16, 25, 32, 45), status = SpeedLimitStatus.Confirmed(32, at)),
+                state(choices = listOf(16, 25, 32, 45), status = SpeedLimitStatus.Confirmed(32)),
                 DashboardActions.None,
             )
         }
@@ -46,7 +45,7 @@ class NarrowPhoneScreenshotTest {
                 state(
                     verification = Verification.UNVERIFIED,
                     battery = 100,
-                    status = SpeedLimitStatus.Confirmed(45, at),
+                    status = SpeedLimitStatus.Confirmed(45),
                 ),
                 DashboardActions.None,
             )

@@ -16,6 +16,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
@@ -185,7 +188,22 @@ class AppFlowTest {
         pass(3)
         assertEquals(listOf(BikeCommand.ReadIdentity, BikeCommand.SetSpeedLimit(SpeedLimit.KMH_32)), near.commands)
         assertEquals(SpeedLimit.KMH_32, near.speedLimit)
-        waitFor(app.getString(R.string.speed_status_active, 32, "").trimEnd(), substring = true)
+        // The box says it, read out once as it changes; no line repeats it.
+        val activeState = text(R.string.speed_chip_active)
+        val active =
+            hasContentDescription(app.getString(R.string.speed_chip_label, 32)) and
+                SemanticsMatcher(activeState) {
+                    it.config.getOrNull(SemanticsProperties.StateDescription)?.startsWith(activeState) == true
+                }
+        waitFor(active)
+        assertEquals(
+            LiveRegionMode.Polite,
+            screen.compose
+                .onNode(active)
+                .fetchSemanticsNode()
+                .config
+                .getOrNull(SemanticsProperties.LiveRegion),
+        )
         // Back to 25: one tap, no sheet.
         screen.compose.onNodeWithContentDescription(app.getString(R.string.speed_chip_label, 25)).performClick()
         pass(3)

@@ -21,7 +21,6 @@ import io.github.ridelabz.engwespeedtool.ui.dashboard.SpeedLimitStatus
 import io.github.ridelabz.engwespeedtool.ui.onboarding.CheckResult
 import io.github.ridelabz.engwespeedtool.ui.onboarding.ConnectCheckUiState
 import io.github.ridelabz.engwespeedtool.ui.onboarding.SignalStrength
-import java.time.Instant
 import io.github.ridelabz.engwespeedtool.protocol.Lights as BikeLights
 import io.github.ridelabz.engwespeedtool.session.Reapply as SessionReapply
 import io.github.ridelabz.engwespeedtool.session.RideData as SessionRide
@@ -241,14 +240,12 @@ object BikeUi {
      * What the card says about the limit, from what the session sent and saw on this connection. A restart
      * the session saw reads as the bike's default only on a verified bike, where restarts are [trusted], and
      * when the app hadn't set a speed before it ([applied]); otherwise as a restart, worded by the card.
-     * [confirmedAt] is when the app saw the confirmation.
      */
     fun limit(
         state: LimitState,
         verified: Boolean,
         trusted: Boolean,
         applied: Boolean,
-        confirmedAt: Instant,
     ): SpeedLimitStatus =
         when (state) {
             LimitState.Unknown -> {
@@ -264,7 +261,7 @@ object BikeUi {
             }
 
             is LimitState.Confirmed -> {
-                SpeedLimitStatus.Confirmed(state.limit.kmh, confirmedAt, reapply(state.reapply))
+                SpeedLimitStatus.Confirmed(state.limit.kmh, reapply(state.reapply))
             }
 
             is LimitState.NotConfirmed -> {

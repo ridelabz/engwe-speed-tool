@@ -87,14 +87,12 @@
     <string name="speed_status_default">Bike switched on · in the project’s tests, the limit started at %1$d\u00A0km/h</string>
     <string name="speed_status_none_unverified">No speed set by this app yet</string>
     <string name="speed_status_sending">Sending %1$d\u00A0km/h…</string>
-    <!-- %2$s: a time of day -->
-    <string name="speed_status_active">%1$d\u00A0km/h · confirmed by the bike at %2$s</string>
     <string name="speed_status_until_off">In the project’s tests, a speed set here lasted until the bike was switched off.</string>
     <!-- %1$d: the bike's default limit, 25 -->
     <string name="speed_turn_off_resets">In the project’s tests, turning the bike off and on in this app reset the limit to %1$d\u00A0km/h too, as switching it off and on at the display does.</string>
-    <!-- %2$s: a time of day -->
-    <!-- %3$d: the bike's default limit, 25 -->
-    <string name="speed_status_confirmed_unverified">%1$d\u00A0km/h · confirmed by the bike at %2$s. It may not reset when the bike turns off: tap %3$d to restore.</string>
+    <!-- Under the box of a speed the bike confirmed, on an untested model -->
+    <!-- %1$d: the bike's default limit, 25 -->
+    <string name="speed_status_confirmed_unverified">It may not reset when the bike turns off: tap %1$d to restore.</string>
     <string name="speed_status_unverified_caveat">Not known whether a speed resets when this bike turns off. Tap %1$d to restore.</string>
     <string name="speed_status_not_confirmed">Not confirmed. Tap %1$d to try again.</string>
     <string name="speed_not_confirmed_help">What does this mean?</string>

@@ -35,7 +35,7 @@ class PseudoLocaleScreenshotTest {
     private fun dashboard() =
         screen.setScreen {
             DashboardScreen(
-                SampleDashboard.state(status = SpeedLimitStatus.Confirmed(32, SampleDashboard.at), keepSpeed = true),
+                SampleDashboard.state(status = SpeedLimitStatus.Confirmed(32), keepSpeed = true),
                 DashboardActions.None,
             )
         }

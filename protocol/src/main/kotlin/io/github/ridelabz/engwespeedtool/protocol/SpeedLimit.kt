@@ -8,7 +8,7 @@ public enum class SpeedLimit(
     KMH_25(25),
     KMH_32(32),
 
-    /** Not yet ridden on any bike: the app's warning says so. */
+    /** Ridden on the tested model with assistance up to about 45 km/h; the app's warning for it is the stronger one. */
     KMH_45(45),
     ;
 

@@ -6,7 +6,6 @@ import io.github.ridelabz.engwespeedtool.protocol.Verification
 import io.github.ridelabz.engwespeedtool.testing.PHONE
 import io.github.ridelabz.engwespeedtool.testing.ScreenRule
 import io.github.ridelabz.engwespeedtool.testing.ScreenVariant
-import io.github.ridelabz.engwespeedtool.ui.dashboard.SampleDashboard.at
 import io.github.ridelabz.engwespeedtool.ui.dashboard.SampleDashboard.state
 import io.github.ridelabz.engwespeedtool.ui.legal.FirmwareCaveatScreen
 import org.junit.Rule
@@ -51,7 +50,7 @@ class DashboardScreenshotTest(
     fun active() =
         shot(
             "02_active_32_keep_trusted_restarts",
-            state(status = SpeedLimitStatus.Confirmed(32, at), keepSpeed = true, restartsTrusted = true),
+            state(status = SpeedLimitStatus.Confirmed(32), keepSpeed = true, restartsTrusted = true),
         )
 
     @Test
@@ -73,7 +72,7 @@ class DashboardScreenshotTest(
 
     @Test
     fun bikeOff() =
-        shot("07_bike_off", state(status = SpeedLimitStatus.Confirmed(32, at), connection = Connection.BIKE_OFF))
+        shot("07_bike_off", state(status = SpeedLimitStatus.Confirmed(32), connection = Connection.BIKE_OFF))
 
     @Test
     fun reapplyAfterReconnect() =
@@ -89,7 +88,7 @@ class DashboardScreenshotTest(
     fun reconnecting() =
         shot(
             "08_reconnecting",
-            state(status = SpeedLimitStatus.Confirmed(32, at), connection = Connection.RECONNECTING),
+            state(status = SpeedLimitStatus.Confirmed(32), connection = Connection.RECONNECTING),
         )
 
     @Test
@@ -103,15 +102,15 @@ class DashboardScreenshotTest(
     fun unverifiedActive() =
         shot(
             "11_unverified_active_32",
-            state(verification = Verification.UNVERIFIED, status = SpeedLimitStatus.Confirmed(32, at)),
+            state(verification = Verification.UNVERIFIED, status = SpeedLimitStatus.Confirmed(32)),
         )
 
     @Test
     fun fourSpeeds() =
-        shot("12_four_speeds", state(choices = listOf(16, 25, 32, 45), status = SpeedLimitStatus.Confirmed(45, at)))
+        shot("12_four_speeds", state(choices = listOf(16, 25, 32, 45), status = SpeedLimitStatus.Confirmed(45)))
 
     @Test
-    fun restored() = shot("13_restored_25", state(status = SpeedLimitStatus.Confirmed(25, at)))
+    fun restored() = shot("13_restored_25", state(status = SpeedLimitStatus.Confirmed(25)))
 
     @Test
     fun noPermission() = shot("19_no_permission", state(connection = Connection.NO_PERMISSION))
@@ -183,7 +182,7 @@ class DashboardScreenshotTest(
     fun keepWhenConnecting() =
         shot(
             "26_active_keep_untrusted",
-            state(status = SpeedLimitStatus.Confirmed(32, at), keepSpeed = true, restartsTrusted = false),
+            state(status = SpeedLimitStatus.Confirmed(32), keepSpeed = true, restartsTrusted = false),
         )
 
     @Test
