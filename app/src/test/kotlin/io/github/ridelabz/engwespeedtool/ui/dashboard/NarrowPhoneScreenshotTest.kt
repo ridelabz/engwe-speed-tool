@@ -45,6 +45,7 @@ class NarrowPhoneScreenshotTest {
                 state(
                     verification = Verification.UNVERIFIED,
                     battery = 100,
+                    choices = listOf(16, 25, 32, 45),
                     status = SpeedLimitStatus.Confirmed(45),
                 ),
                 DashboardActions.None,

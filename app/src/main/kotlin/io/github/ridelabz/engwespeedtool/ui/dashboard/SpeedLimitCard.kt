@@ -3,6 +3,7 @@ package io.github.ridelabz.engwespeedtool.ui.dashboard
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -89,8 +90,9 @@ fun SpeedLimitCard(
             onInfo = onInfo,
             infoLabel = R.string.speed_info,
         )
-        // The boxes and their line, without the card's spacing: an empty line takes almost no room.
-        Column {
+        // The boxes and their line, without the card's spacing: an empty line takes almost no room. The card grows
+        // and shrinks smoothly as a line comes and goes ("Sending…" only for a moment), so what is below doesn't jump.
+        Column(modifier = Modifier.animateContentSize()) {
             SpeedChoices(state, verified, connected, onSpeed)
             StatusText(
                 status,
@@ -149,7 +151,9 @@ private fun SpeedChoices(
 
 /**
  * Whether [status] is a confirmation the card didn't show before: no line says it in words, so the confirmed box
- * is then read out, once. A speed confirmed before the card showed (back from another screen) isn't.
+ * is then read out, once. A speed confirmed before the card showed (back from another screen) isn't. The box stays
+ * a live region for as long as that status holds, on purpose: nothing on it changes meanwhile, and screen readers
+ * look at it only after the change has been passed on, so clearing it right away could lose the announcement.
  */
 @Composable
 private fun newlyConfirmed(status: SpeedLimitStatus): Boolean {
@@ -403,10 +407,21 @@ private fun StatusText(
     val connected = connection == Connection.CONNECTED
     val line = notSentLine ?: if (connected) statusLine(status, verified, trusted) else null
     val notConfirmed = status is SpeedLimitStatus.NotConfirmed && connected
+    // The only line under a confirmed box is an untested model's caveat. Read out, it names the speed: the box
+    // and the line may be heard in either order, and when swiping, the box just before the line may be another one.
+    val spoken =
+        if (line != null && notSentLine == null && status is SpeedLimitStatus.Confirmed) {
+            stringResource(R.string.speed_status_confirmed_unverified_spoken, status.kmh, BIKE_DEFAULT_KMH)
+        } else {
+            null
+        }
     val lineModifier =
         if (line != null) {
             // Read out when it changes, as far below the boxes as the card's spacing.
-            Modifier.padding(top = Spacing.m).semantics { liveRegion = LiveRegionMode.Polite }
+            Modifier.padding(top = Spacing.m).semantics {
+                liveRegion = LiveRegionMode.Polite
+                spoken?.let { contentDescription = it }
+            }
         } else {
             Modifier.height(EMPTY_LINE_HEIGHT).clearAndSetSemantics {}
         }

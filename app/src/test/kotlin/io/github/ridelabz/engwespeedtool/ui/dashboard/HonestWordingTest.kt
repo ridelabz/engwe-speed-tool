@@ -295,11 +295,9 @@ class HonestWordingTest {
             current = state(Verification.VERIFIED, status = SpeedLimitStatus.Unknown, connection = connection)
             screen.compose.waitForIdle()
             // Where they are laid out, also below the screen's edge (real text, as on CI, makes the page long).
-            val box = edges(hasContentDescription(text(R.string.speed_chip_label, 25)))
-            val keep = edges(hasText(text(R.string.keep_speed_title)))
+            val speedGap = speedGap()
             val segment = edges(hasContentDescription(text(R.string.assist_segment, 0)))
             val keepAssist = edges(hasText(text(R.string.keep_assist_title)))
-            val speedGap = keep.first - box.second
             val assistGap = keepAssist.first - segment.second
             assertTrue(
                 "$connection: as far from the boxes ($speedGap px) as the assist card's switch from its bar " +

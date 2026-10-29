@@ -127,6 +127,16 @@ class SpeedAnnouncementTest {
             val node = screen.compose.onNode(hasText(line)).fetchSemanticsNode()
             assertEquals(line, LiveRegionMode.Polite, node.config.getOrNull(SemanticsProperties.LiveRegion))
         }
+        // The caveat under a confirmed box names the speed when read out: the box may be heard after it, and when
+        // swiping, the box just before it is 45.
+        change(
+            state(Verification.UNVERIFIED, choices = listOf(16, 25, 32, 45), status = SpeedLimitStatus.Confirmed(32)),
+        )
+        val caveat = screen.compose.onNode(hasText(text(R.string.speed_status_confirmed_unverified, 25)))
+        assertEquals(
+            listOf(text(R.string.speed_status_confirmed_unverified_spoken, 32, 25)),
+            caveat.fetchSemanticsNode().config.getOrNull(SemanticsProperties.ContentDescription),
+        )
         // Not confirmed keeps its help.
         change(state(status = SpeedLimitStatus.NotConfirmed(32)))
         screen.compose.onNode(hasText(text(R.string.speed_not_confirmed_help))).assertExists()
