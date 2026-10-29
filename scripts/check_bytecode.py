@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 """Fails if compiled code outside ble-android references Bluetooth, reflection, class loading or native code.
 
-Usage: check_bytecode.py [<repo root>]   (after `./gradlew :app:assemblePrTest`; needs the JDK's javap)
+Usage: check_bytecode.py [--variant <variant>] [<repo root>]   (needs the JDK's javap)
+
+After `./gradlew :app:assemblePrTest` (the default variant, prTest), or with `--variant release` after
+`./gradlew :app:assembleRelease`, as the release workflow does.
 
 The source check (check_source_boundaries.py) reads text, which can hide a call behind unusual syntax.
 A compiled class names every class, field and method it uses in its constant pool, including the
 method handles and method types behind invokedynamic. This reads, with `javap -v`, the constant pools,
 member declarations and code of the classes compiled for the test build from this repository's own
-sources: the app's `compilePrTest*` outputs and the pure-Kotlin modules' main classes. Classes are
+sources: the app's `compile<Variant>*` outputs and the pure-Kotlin modules' main classes. Classes are
 chosen by where they were built, not by package, because any source file can declare any package.
 ble-android and libraries aren't read. The descriptors of the JDK's lambda and string-concatenation
 bootstrap methods, which name method handles by design, are not checked; their names are.
@@ -146,7 +149,9 @@ def constant_targets(kind: str, rest: str) -> list[str]:
     return [comment]  # MethodType, InvokeDynamic, Dynamic and anything unknown: check all of it
 
 
-def class_files(root: Path) -> list[Path]:
+def class_files(root: Path, variant: str = "prTest") -> list[Path]:
+    """The classes to read: the pure-Kotlin modules' main classes and the app's, compiled for [variant]."""
+    compile_task = "compile" + variant[:1].upper() + variant[1:]
     files: list[Path] = []
     for module in JVM_MODULES:
         found = sorted((root / module / "build/classes/kotlin/main").rglob("*.class"))
@@ -156,7 +161,7 @@ def class_files(root: Path) -> list[Path]:
     app = [
         p
         for p in (root / "app/build").rglob("*.class")
-        if "prTest" in p.parts and any(part.startswith("compilePrTest") for part in p.parts)
+        if variant in p.parts and any(part.startswith(compile_task) for part in p.parts)
     ]
     return files + sorted(app)
 
@@ -214,9 +219,15 @@ def javap() -> str:
 
 
 def main(argv: list[str]) -> int:
-    root = Path(argv[1]) if len(argv) > 1 else Path(__file__).resolve().parent.parent
+    args = argv[1:]
+    variant = "prTest"
+    if args[:1] == ["--variant"]:
+        if len(args) < 2 or not re.fullmatch(r"[a-z][A-Za-z]*", args[1]):
+            raise SystemExit("check_bytecode: --variant needs a build variant, such as prTest or release")
+        variant, args = args[1], args[2:]
+    root = Path(args[0]) if args else Path(__file__).resolve().parent.parent
     root = root.resolve()
-    files = class_files(root)
+    files = class_files(root, variant)
     problems: list[str] = []
     classes: set[str] = set()
     groups: dict[str, list[Path]] = {}
@@ -230,7 +241,7 @@ def main(argv: list[str]) -> int:
             classes.update(m.group(1) for line in out.splitlines() if (m := CLASS_HEADER.match(line)))
             problems += check_javap(out, rules)
     if APP_MARKER not in classes:
-        print(f"check_bytecode: the app's compiled classes weren't found ({APP_MARKER} missing)")
+        print(f"check_bytecode: the app's {variant} classes weren't found ({APP_MARKER} missing)")
         return 1
     for p in problems:
         print(p)

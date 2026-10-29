@@ -292,6 +292,24 @@ class BytecodeTest(unittest.TestCase):
                 (root / rel).write_bytes(b"")
             self.assertEqual(sorted(p.relative_to(root).as_posix() for p in class_files(root)), sorted(wanted))
 
+    def test_the_release_variant_reads_the_release_classes_only(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            wanted = [
+                "protocol/build/classes/kotlin/main/a/A.class",
+                "app/build/intermediates/built_in_kotlinc/release/compileReleaseKotlin/classes/io/x/Screen.class",
+                "app/build/intermediates/javac/release/compileReleaseJavaWithJavac/classes/io/x/BuildConfig.class",
+            ]
+            ignored = [
+                "app/build/intermediates/built_in_kotlinc/prTest/compilePrTestKotlin/classes/io/x/Screen.class",
+                "app/build/intermediates/built_in_kotlinc/debug/compileDebugKotlin/classes/io/x/D.class",
+            ]
+            for rel in wanted + ignored:
+                (root / rel).parent.mkdir(parents=True, exist_ok=True)
+                (root / rel).write_bytes(b"")
+            found = sorted(p.relative_to(root).as_posix() for p in class_files(root, "release"))
+            self.assertEqual(found, sorted(wanted))
+
     def test_missing_module_classes_fail_only_for_modules_with_sources(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
