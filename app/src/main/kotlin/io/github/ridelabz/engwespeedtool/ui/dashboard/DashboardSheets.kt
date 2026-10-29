@@ -63,7 +63,7 @@ internal fun InfoSheet(
     }
 }
 
-/** A paragraph of a sheet, with an optional decorative icon in front (tinted [tint], as for a warning). */
+/** A paragraph of a sheet, with an optional decorative icon in front, tinted [tint] (caution for a warning). */
 @Composable
 internal fun SheetText(
     text: String,
@@ -215,6 +215,6 @@ internal fun VerificationSheet(
                 caution,
             )
         }
-        SheetText(stringResource(R.string.verification_how), R.drawable.ic_verified)
+        SheetText(stringResource(R.string.verification_how), R.drawable.ic_feedback)
     }
 }
