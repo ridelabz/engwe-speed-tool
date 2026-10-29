@@ -102,7 +102,10 @@ internal fun CardInfoSheet(
                     SheetText(stringResource(R.string.speed_status_until_off), R.drawable.ic_power_settings_new)
                     // Where the app turns the bike off and on: that counts as switching it off and on.
                     if (state.power != null) {
-                        SheetText(stringResource(R.string.speed_turn_off_resets, BIKE_DEFAULT_KMH))
+                        SheetText(
+                            stringResource(R.string.speed_turn_off_resets, BIKE_DEFAULT_KMH),
+                            R.drawable.ic_restart_alt,
+                        )
                     }
                 } else if (state.checked) {
                     SheetText(
