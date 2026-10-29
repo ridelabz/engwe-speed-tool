@@ -272,6 +272,13 @@ class HonestWordingTest {
         }
     }
 
+    /** The top and bottom of the node [matcher] finds, in pixels from the root, whether on the screen or not. */
+    private fun edges(matcher: SemanticsMatcher): Pair<Float, Float> {
+        val node = screen.compose.onNode(matcher).fetchSemanticsNode()
+        val top = node.positionInRoot.y
+        return top to top + node.size.height
+    }
+
     /** The battery card, by what it reads out (the sample's 76 %, or no reading). */
     private fun batteryCard() =
         SemanticsMatcher("the battery card") { node ->
@@ -288,19 +295,17 @@ class HonestWordingTest {
             // Nothing sent, nothing seen: no line, and no room for one.
             current = state(Verification.VERIFIED, status = SpeedLimitStatus.Unknown, connection = connection)
             screen.compose.waitForIdle()
-            val box =
-                screen.compose
-                    .onNode(hasContentDescription(text(R.string.speed_chip_label, 25)))
-                    .getBoundsInRoot()
-            val keep = screen.compose.onNode(hasText(text(R.string.keep_speed_title))).getBoundsInRoot()
-            val segment =
-                screen.compose
-                    .onNode(hasContentDescription(text(R.string.assist_segment, 0)))
-                    .getBoundsInRoot()
-            val keepAssist = screen.compose.onNode(hasText(text(R.string.keep_assist_title))).getBoundsInRoot()
+            // Where they are laid out, also below the screen's edge (real text, as on CI, makes the page long).
+            val box = edges(hasContentDescription(text(R.string.speed_chip_label, 25)))
+            val keep = edges(hasText(text(R.string.keep_speed_title)))
+            val segment = edges(hasContentDescription(text(R.string.assist_segment, 0)))
+            val keepAssist = edges(hasText(text(R.string.keep_assist_title)))
+            val speedGap = keep.first - box.second
+            val assistGap = keepAssist.first - segment.second
             assertTrue(
-                "$connection: as far from the boxes as the assist card's switch from its bar",
-                abs((keep.top - box.bottom).value - (keepAssist.top - segment.bottom).value) < 1f,
+                "$connection: as far from the boxes ($speedGap px) as the assist card's switch from its bar " +
+                    "($assistGap px)",
+                abs(speedGap - assistGap) < 1f,
             )
             // News shows only while connected; the state at the top says the rest.
             current = state(Verification.VERIFIED, status = SpeedLimitStatus.Confirmed(32, at), connection = connection)
