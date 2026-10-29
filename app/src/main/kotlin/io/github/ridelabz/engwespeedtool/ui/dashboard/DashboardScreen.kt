@@ -317,18 +317,22 @@ internal fun UnverifiedMarker(modifier: Modifier = Modifier) {
 internal val EMPTY_LINE_HEIGHT = 1.dp
 
 /**
- * Whether [confirmed] is a confirmation this place didn't show in its last composition: no line says it in words,
- * so the control that shows it is then read out, once. A confirmation shown when the screen opens (back from
- * another screen) isn't; null is no confirmation. The control stays a live region for as long as this holds, on
- * purpose: nothing on it changes meanwhile, and screen readers look at it only after the change has been passed on,
- * so clearing it right away could lose the announcement.
+ * Whether [confirmed] differs from what this place showed before it came, and still holds: no line says it in
+ * words, so the control that shows it is then read out, once. A confirmation shown when the screen opens (back
+ * from another screen) isn't new; null is no confirmation. While [hold] (for example no reading for a moment), the
+ * last confirmation shown is kept, so that it isn't new again when it comes back. The control stays a live region
+ * for as long as this holds, on purpose: screen readers look at it only after the change has been passed on, so
+ * clearing it right away could lose the announcement.
  */
 @Composable
-internal fun isNewConfirmation(confirmed: Any?): Boolean {
+internal fun isNewConfirmation(
+    confirmed: Any?,
+    hold: Boolean = false,
+): Boolean {
     val shown = remember { arrayOf(confirmed) }
     // Not only after a "Sending" this place showed: a quick echo may come within one frame.
     val new = remember(confirmed) { confirmed != null && confirmed != shown[0] }
-    SideEffect { shown[0] = confirmed }
+    SideEffect { if (!hold) shown[0] = confirmed }
     return new
 }
 

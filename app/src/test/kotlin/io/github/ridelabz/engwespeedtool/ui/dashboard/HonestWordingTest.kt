@@ -585,7 +585,14 @@ class HonestWordingTest {
                 screen.compose.waitForIdle()
             }
             assertTrue("$connection", !shows(text(R.string.assist_value, 3, 5)))
-            screen.compose.onNode(hasContentDescription(text(R.string.assist_spoken_none))).assertExists()
+            // Not that the level is confirmed either, and nothing is read out.
+            val heading =
+                screen.compose
+                    .onNode(hasContentDescription(text(R.string.assist_spoken_none)))
+                    .fetchSemanticsNode()
+                    .config
+            assertTrue("$connection", heading.getOrNull(SemanticsProperties.StateDescription) == null)
+            assertTrue("$connection", heading.getOrNull(SemanticsProperties.LiveRegion) == null)
             // Greyed out and disabled: no segment and not the switch takes a tap.
             for (level in 0..5) {
                 screen.compose

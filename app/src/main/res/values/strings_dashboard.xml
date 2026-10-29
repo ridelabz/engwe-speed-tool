@@ -126,6 +126,8 @@
     <string name="assist_spoken">Assist %1$d of %2$d</string>
     <string name="assist_spoken_level">Assist %1$d</string>
     <string name="assist_spoken_none">Assist, no reading</string>
+    <!-- Read out with the heading ("Assist 3 of 5") while the bike's confirmation of a level the app set holds -->
+    <string name="assist_heading_confirmed">Confirmed</string>
     <string name="assist_segment">Level %1$d</string>
     <string name="assist_segment_sending">Sending</string>
     <!-- %1$d: an assist level -->

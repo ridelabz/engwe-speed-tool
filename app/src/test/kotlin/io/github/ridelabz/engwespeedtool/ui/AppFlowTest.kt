@@ -282,6 +282,11 @@ class AppFlowTest {
         // No line says it: the heading is read out, as a live region while the confirmation is new.
         val heading = hasContentDescription(app.getString(R.string.assist_spoken, 4, 5))
         waitFor(heading and SemanticsMatcher.expectValue(SemanticsProperties.LiveRegion, LiveRegionMode.Polite))
+        val confirmed = text(R.string.assist_heading_confirmed)
+        screen.compose
+            .onNode(
+                heading and SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, confirmed),
+            ).assertExists()
         assertEquals(4, controller.dashboard.assist.level)
         assertEquals(4, controller.dashboard.assist.confirmed)
     }

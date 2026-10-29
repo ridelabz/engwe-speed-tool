@@ -25,8 +25,8 @@ import kotlin.math.abs
 
 /**
  * What the assist card says about a level the app set: a level the bike confirmed shows on the bar and in the
- * heading, with no line under the bar, so the heading is read out as the confirmation comes, once; every other
- * line is read out as it comes.
+ * heading, with no line under the bar; the heading says it is confirmed while that holds and is read out as the
+ * confirmation comes, once; every other line is read out as it comes.
  */
 @RunWith(RobolectricTestRunner::class)
 @Config(qualifiers = PHONE)
@@ -64,6 +64,14 @@ class AssistAnnouncementTest {
             .config
             .getOrNull(SemanticsProperties.LiveRegion) == LiveRegionMode.Polite
 
+    /** Whether the heading says the level is confirmed. */
+    private fun saysConfirmed(): Boolean =
+        screen.compose
+            .onNode(heading())
+            .fetchSemanticsNode()
+            .config
+            .getOrNull(SemanticsProperties.StateDescription) == text(R.string.assist_heading_confirmed)
+
     /** The room between the bar and the keep switch, in pixels. */
     private fun gap(): Float {
         val segment =
@@ -80,28 +88,39 @@ class AssistAnnouncementTest {
         current = state(assist = AssistUiState(level = 2, levels = 5))
         show()
         val none = gap()
-        assertTrue(!announced())
-        // While it is sent, the line says so.
+        assertTrue(!announced() && !saysConfirmed())
+        // While it is sent, the line says so; the bike's reading may show the new level before it confirms it.
         change(AssistUiState(level = 2, levels = 5, sending = 3))
-        assertTrue(!announced())
+        assertTrue(!announced() && !saysConfirmed())
+        change(AssistUiState(level = 3, levels = 5, sending = 3))
+        assertTrue(!announced() && !saysConfirmed())
+        // Confirmed: the heading's text stays "Assist 3 of 5", its state changes, and it is read out.
         change(AssistUiState(level = 3, levels = 5, confirmed = 3))
-        assertTrue("confirmed", announced())
+        assertTrue("confirmed", announced() && saysConfirmed())
         screen.compose.onNode(heading() and hasContentDescription(text(R.string.assist_spoken, 3, 5))).assertExists()
         assertTrue("no line, and no room for one", abs(gap() - none) < 1f)
         // The level changed at the display: the heading goes quiet again.
         change(AssistUiState(level = 4, levels = 5))
-        assertTrue(!announced())
+        assertTrue(!announced() && !saysConfirmed())
         // Not confirmed: the line says it.
         change(AssistUiState(level = 4, levels = 5, notConfirmed = 1))
-        assertTrue(!announced())
-        // Set again by "keep this assist level", once the bike confirms it; also straight after another confirmation.
-        change(AssistUiState(level = 4, levels = 5, sending = 3, reapply = Reapply.RECONNECT, keep = true))
-        assertTrue(!announced())
-        change(AssistUiState(level = 3, levels = 5, confirmed = 3, reapply = Reapply.RECONNECT, keep = true))
-        assertTrue("re-applied", announced())
+        assertTrue(!announced() && !saysConfirmed())
+        // Set again by "keep this assist level" at the level already shown, once the bike confirms it.
+        change(AssistUiState(level = 4, levels = 5, sending = 4, reapply = Reapply.RECONNECT, keep = true))
+        assertTrue(!announced() && !saysConfirmed())
+        change(AssistUiState(level = 4, levels = 5, confirmed = 4, reapply = Reapply.RECONNECT, keep = true))
+        assertTrue("re-applied", announced() && saysConfirmed())
         assertTrue("no line, and no room for one", abs(gap() - none) < 1f)
-        change(AssistUiState(level = 3, levels = 5, confirmed = 3, reapply = Reapply.RESTART, keep = true))
-        assertTrue("re-applied after a restart", announced())
+        // No reading for a moment: when it comes back, the same confirmation isn't new.
+        change(AssistUiState(level = null, levels = 5, keep = true))
+        assertTrue(!announced() && !saysConfirmed())
+        change(AssistUiState(level = 4, levels = 5, confirmed = 4, reapply = Reapply.RECONNECT, keep = true))
+        assertTrue("not read out again", !announced() && saysConfirmed())
+        // After the bike switched off and on.
+        change(AssistUiState(level = 4, levels = 5, sending = 4, reapply = Reapply.RESTART, keep = true))
+        assertTrue(!announced())
+        change(AssistUiState(level = 4, levels = 5, confirmed = 4, reapply = Reapply.RESTART, keep = true))
+        assertTrue("re-applied after a restart", announced() && saysConfirmed())
     }
 
     @Test
@@ -109,6 +128,7 @@ class AssistAnnouncementTest {
         current = state(assist = AssistUiState(level = 3, levels = 5, confirmed = 3))
         show()
         assertTrue(!announced())
+        assertTrue("it still says so", saysConfirmed())
     }
 
     @Test

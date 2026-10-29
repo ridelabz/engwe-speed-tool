@@ -75,8 +75,12 @@ internal fun AssistCard(
     val level = state.level?.takeIf { connected }
     val levels = state.levels ?: PLACEHOLDER_LEVELS.takeIf { !checked }
     AssistHaptics(state)
-    // No line says it: the heading ("Assist 3 of 5") is read out when the bike has just confirmed a level.
-    val announce = isNewConfirmation(state.confirmed?.takeIf { connected }?.let { it to state.reapply })
+    // No line says it: the heading ("Assist 3 of 5") says so while the bike's confirmation of a level the app set
+    // holds, and is read out when it comes. Its text may not change then (the reading can come first, or the level
+    // was already shown), its state always does. Without a reading for a moment, the last confirmation is kept.
+    val confirmed = state.confirmed?.takeIf { assistTakesTaps(connected, checked, state.settable) }
+    val announce = isNewConfirmation(confirmed?.let { it to state.reapply }, hold = level == null)
+    val confirmedText = stringResource(R.string.assist_heading_confirmed)
     DashboardCard {
         val spoken =
             when {
@@ -90,6 +94,7 @@ internal fun AssistCard(
                     Modifier.weight(1f).clearAndSetSemantics {
                         contentDescription = spoken
                         heading()
+                        if (confirmed != null) stateDescription = confirmedText
                         if (announce) liveRegion = LiveRegionMode.Polite
                     },
                 verticalAlignment = Alignment.CenterVertically,
