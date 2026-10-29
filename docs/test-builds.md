@@ -63,7 +63,8 @@ Code outside `ble-android` may not use Bluetooth or reach it indirectly:
   reaches a bike only through a session; and no `AndroidBluetooth` outside the app's protected `bike`
   package, which creates every session with the rider's stored acceptance. Kotlin goes in `src/<set>/kotlin`, in the directory of its
   package. In Gradle files, test fixtures may only be test dependencies: they are never checked.
-- `scripts/check_bytecode.py` reads the classes compiled for the test APK with `javap -v`: their constant
+- `scripts/check_bytecode.py` reads the classes compiled for the test APK (the release workflow reads the
+  release build's the same way, with `--variant release`) with `javap -v`: their constant
   pools (including the method handles behind invokedynamic), member declarations and code. No
   `android.bluetooth`, reflection, class loading, native methods, processes or raw Binder calls; no
   `OutgoingFrame.getBytes` outside the protocol module; outside the session module, no `BikeLink` member

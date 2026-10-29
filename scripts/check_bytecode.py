@@ -9,8 +9,9 @@ After `./gradlew :app:assemblePrTest` (the default variant, prTest), or with `--
 The source check (check_source_boundaries.py) reads text, which can hide a call behind unusual syntax.
 A compiled class names every class, field and method it uses in its constant pool, including the
 method handles and method types behind invokedynamic. This reads, with `javap -v`, the constant pools,
-member declarations and code of the classes compiled for the test build from this repository's own
-sources: the app's `compile<Variant>*` outputs and the pure-Kotlin modules' main classes. Classes are
+member declarations and code of the classes compiled from this repository's own sources for the chosen
+variant (the test build by default): the app's `compile<Variant>*` outputs and the pure-Kotlin modules' main
+classes. Classes are
 chosen by where they were built, not by package, because any source file can declare any package.
 ble-android and libraries aren't read. The descriptors of the JDK's lambda and string-concatenation
 bootstrap methods, which name method handles by design, are not checked; their names are.
@@ -41,6 +42,7 @@ OutgoingFrame. Exemptions go by build location (EXEMPT), never by package.
 
 from __future__ import annotations
 
+import argparse
 import os
 import re
 import shutil
@@ -158,10 +160,12 @@ def class_files(root: Path, variant: str = "prTest") -> list[Path]:
         if not found and any((root / module / "src/main").rglob("*.kt")):
             raise SystemExit(f"check_bytecode: no compiled classes for {module}; build first")
         files += found
+    app_build = root / "app/build"
     app = [
         p
-        for p in (root / "app/build").rglob("*.class")
-        if variant in p.parts and any(part.startswith(compile_task) for part in p.parts)
+        for p in app_build.rglob("*.class")
+        if variant in (parts := p.relative_to(app_build).parts)
+        and any(part.startswith(compile_task) for part in parts)
     ]
     return files + sorted(app)
 
@@ -218,15 +222,20 @@ def javap() -> str:
     return found
 
 
+def arguments(argv: list[str]) -> tuple[str, Path]:
+    """The build variant to read (prTest unless `--variant` says otherwise) and the repository root."""
+    parser = argparse.ArgumentParser(prog="check_bytecode.py")
+    parser.add_argument("--variant", default="prTest", help="the app's build variant, such as prTest or release")
+    parser.add_argument("root", nargs="?", help="the repository root (default: this script's repository)")
+    args = parser.parse_args(argv[1:])
+    if not re.fullmatch(r"[a-z][A-Za-z]*", args.variant):
+        parser.error(f"not a build variant: {args.variant!r}")
+    root = Path(args.root) if args.root else Path(__file__).resolve().parent.parent
+    return args.variant, root.resolve()
+
+
 def main(argv: list[str]) -> int:
-    args = argv[1:]
-    variant = "prTest"
-    if args[:1] == ["--variant"]:
-        if len(args) < 2 or not re.fullmatch(r"[a-z][A-Za-z]*", args[1]):
-            raise SystemExit("check_bytecode: --variant needs a build variant, such as prTest or release")
-        variant, args = args[1], args[2:]
-    root = Path(args[0]) if args else Path(__file__).resolve().parent.parent
-    root = root.resolve()
+    variant, root = arguments(argv)
     files = class_files(root, variant)
     problems: list[str] = []
     classes: set[str] = set()

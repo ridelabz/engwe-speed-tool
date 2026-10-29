@@ -1,10 +1,12 @@
 """Tests for check_bytecode.py using javap -c -p text (python3 -m unittest)."""
 
+import contextlib
+import io
 import tempfile
 import unittest
 from pathlib import Path
 
-from check_bytecode import EXEMPT, RULES, check_javap, class_files, rules_for
+from check_bytecode import EXEMPT, RULES, arguments, check_javap, class_files, rules_for
 
 LOOKUP = "Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;"
 METAFACTORY = f"java/lang/invoke/LambdaMetafactory.metafactory:({LOOKUP}Ljava/lang/invoke/MethodHandle;)Ljava/lang/invoke/CallSite;"
@@ -303,12 +305,34 @@ class BytecodeTest(unittest.TestCase):
             ignored = [
                 "app/build/intermediates/built_in_kotlinc/prTest/compilePrTestKotlin/classes/io/x/Screen.class",
                 "app/build/intermediates/built_in_kotlinc/debug/compileDebugKotlin/classes/io/x/D.class",
+                "app/build/intermediates/built_in_kotlinc/releaseUnitTest/compileReleaseUnitTestKotlin/classes/T.class",
+                "app/build/intermediates/classes/release/transformReleaseClassesWithAsm/jars/x/Lib.class",
+                "ble-android/build/intermediates/built_in_kotlinc/release/compileReleaseKotlin/classes/io/x/L.class",
             ]
             for rel in wanted + ignored:
                 (root / rel).parent.mkdir(parents=True, exist_ok=True)
                 (root / rel).write_bytes(b"")
             found = sorted(p.relative_to(root).as_posix() for p in class_files(root, "release"))
             self.assertEqual(found, sorted(wanted))
+
+    def test_a_checkout_under_a_folder_named_like_the_variant_reads_the_same_classes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "release" / "repo"
+            wanted = "app/build/intermediates/built_in_kotlinc/release/compileReleaseKotlin/classes/io/x/S.class"
+            ignored = "app/build/intermediates/built_in_kotlinc/releaseUnitTest/compileReleaseUnitTestKotlin/T.class"
+            for rel in (wanted, ignored):
+                (root / rel).parent.mkdir(parents=True, exist_ok=True)
+                (root / rel).write_bytes(b"")
+            self.assertEqual([p.relative_to(root).as_posix() for p in class_files(root, "release")], [wanted])
+
+    def test_arguments_name_the_variant_and_the_root_in_any_order(self) -> None:
+        self.assertEqual(arguments(["x"])[0], "prTest")
+        self.assertEqual(arguments(["x", "--variant", "release"])[0], "release")
+        self.assertEqual(arguments(["x", "--variant=release", "/tmp/r"]), ("release", Path("/tmp/r").resolve()))
+        self.assertEqual(arguments(["x", "/tmp/r", "--variant", "release"]), ("release", Path("/tmp/r").resolve()))
+        for bad in (["x", "--variant", "../x"], ["x", "--variant", ""], ["x", "--variant"], ["x", "a", "b"]):
+            with self.assertRaises(SystemExit, msg=str(bad)), contextlib.redirect_stderr(io.StringIO()):
+                arguments(bad)
 
     def test_missing_module_classes_fail_only_for_modules_with_sources(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
