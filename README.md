@@ -24,8 +24,8 @@ documents the bike's Bluetooth protocol from its own observations ([PROTOCOL.md]
 free, open, community-maintained app.
 
 <p align="center">
-  <img src="docs/images/dashboard-light.png" width="300" alt="The app's dashboard in the light theme, connected to an E26 3.0 Pro: the bike on and verified, its battery at 78 %, 32 km/h set and confirmed by the bike, assist level 3 of 5, lights on, and the bike's readings">
-  <img src="docs/images/dashboard-dark.png" width="300" alt="The dashboard in the dark theme, with the same bike and readings, before the app has set a speed on this connection, so no speed is marked">
+  <img src="docs/images/dashboard-light.png" width="300" alt="The app's dashboard in the light theme, connected to an E26 3.0 Pro: the bike on and verified, its battery at 78 %, 32 km/h set and confirmed by the bike (its box green with a check mark), assist level 3 of 5, both keep switches on, lights on, and the bike's readings">
+  <img src="docs/images/dashboard-dark.png" width="300" alt="The same dashboard in the dark theme, in the same state">
 </p>
 
 ## What it does
