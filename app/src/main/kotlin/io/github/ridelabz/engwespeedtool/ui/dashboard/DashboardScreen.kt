@@ -24,8 +24,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -313,6 +315,22 @@ internal fun UnverifiedMarker(modifier: Modifier = Modifier) {
  * and read it out once it has something to say (a node without any area isn't given to them at all).
  */
 internal val EMPTY_LINE_HEIGHT = 1.dp
+
+/**
+ * Whether [confirmed] is a confirmation this place didn't show in its last composition: no line says it in words,
+ * so the control that shows it is then read out, once. A confirmation shown when the screen opens (back from
+ * another screen) isn't; null is no confirmation. The control stays a live region for as long as this holds, on
+ * purpose: nothing on it changes meanwhile, and screen readers look at it only after the change has been passed on,
+ * so clearing it right away could lose the announcement.
+ */
+@Composable
+internal fun isNewConfirmation(confirmed: Any?): Boolean {
+    val shown = remember { arrayOf(confirmed) }
+    // Not only after a "Sending" this place showed: a quick echo may come within one frame.
+    val new = remember(confirmed) { confirmed != null && confirmed != shown[0] }
+    SideEffect { shown[0] = confirmed }
+    return new
+}
 
 /** One line of a card's status: a note, in [colour]. */
 @Composable

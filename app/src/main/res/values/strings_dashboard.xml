@@ -132,9 +132,6 @@
     <string name="assist_status_sending">Setting assist %1$d…</string>
     <string name="assist_status_reapplying">Reconnected · setting assist %1$d again…</string>
     <string name="assist_status_reapplying_restart">The bike reported switching off and on · setting assist %1$d again…</string>
-    <string name="assist_status_confirmed">Assist %1$d · confirmed by the bike</string>
-    <string name="assist_status_reapplied">Assist %1$d · set again on connecting, confirmed by the bike</string>
-    <string name="assist_status_reapplied_restart">Assist %1$d · set again after the bike switched on, confirmed by the bike</string>
     <string name="assist_status_not_confirmed">Assist %1$d not confirmed. Tap %1$d to try again.</string>
     <string name="assist_status_shown_only">The app shows this model’s assist level but can’t set it.</string>
     <string name="assist_not_sent_bike_not_on">Not set: the bike wasn’t reporting that it was on. Tap a level to try again.</string>

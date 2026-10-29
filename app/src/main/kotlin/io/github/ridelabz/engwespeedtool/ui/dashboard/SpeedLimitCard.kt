@@ -25,7 +25,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -125,7 +124,8 @@ private fun SpeedChoices(
 ) {
     val status = state.status
     val sending = status is SpeedLimitStatus.Sending
-    val announce = newlyConfirmed(status)
+    // No line says it: the box the bike just confirmed is read out instead.
+    val announce = isNewConfirmation(status.takeIf { it is SpeedLimitStatus.Confirmed })
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(Spacing.s),
@@ -146,21 +146,6 @@ private fun SpeedChoices(
             )
         }
     }
-}
-
-/**
- * Whether [status] is a confirmation the card didn't show before: no line says it in words, so the confirmed box
- * is then read out, once. A speed confirmed before the card showed (back from another screen) isn't. The box stays
- * a live region for as long as that status holds, on purpose: nothing on it changes meanwhile, and screen readers
- * look at it only after the change has been passed on, so clearing it right away could lose the announcement.
- */
-@Composable
-private fun newlyConfirmed(status: SpeedLimitStatus): Boolean {
-    val shown = remember { arrayOf(status) }
-    // Not only after a "Sending" the card showed: a quick echo may come within one frame.
-    val confirmed = remember(status) { status is SpeedLimitStatus.Confirmed && status != shown[0] }
-    SideEffect { shown[0] = status }
-    return confirmed
 }
 
 private fun notSentText(reason: NotSent): Int =

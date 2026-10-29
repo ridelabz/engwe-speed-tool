@@ -268,7 +268,7 @@ class AppFlowTest {
     }
 
     @Test
-    fun `in the demo, a tap on an assist level sets it, and the card says the bike confirmed it`() {
+    fun `in the demo, a tap on an assist level sets it, and the heading is read out once the bike confirms it`() {
         val controller = controller()
         controller.startDemo()
         val navigator = Navigator(listOf(Route.DASHBOARD))
@@ -279,8 +279,11 @@ class AppFlowTest {
         val segment = screen.compose.onNodeWithContentDescription(app.getString(R.string.assist_segment, 4))
         runCatching { segment.performScrollTo() }
         segment.performClick()
-        waitFor(app.getString(R.string.assist_status_confirmed, 4))
+        // No line says it: the heading is read out, as a live region while the confirmation is new.
+        val heading = hasContentDescription(app.getString(R.string.assist_spoken, 4, 5))
+        waitFor(heading and SemanticsMatcher.expectValue(SemanticsProperties.LiveRegion, LiveRegionMode.Polite))
         assertEquals(4, controller.dashboard.assist.level)
+        assertEquals(4, controller.dashboard.assist.confirmed)
     }
 
     @Test

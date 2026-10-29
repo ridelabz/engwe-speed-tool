@@ -584,7 +584,6 @@ class HonestWordingTest {
             } else {
                 screen.compose.waitForIdle()
             }
-            assertTrue("$connection", !shows(text(R.string.assist_status_confirmed, 3)))
             assertTrue("$connection", !shows(text(R.string.assist_value, 3, 5)))
             screen.compose.onNode(hasContentDescription(text(R.string.assist_spoken_none))).assertExists()
             // Greyed out and disabled: no segment and not the switch takes a tap.

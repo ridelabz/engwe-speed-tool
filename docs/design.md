@@ -39,9 +39,10 @@ The app's look lives in `app/src/main/kotlin/io/github/ridelabz/engwespeedtool/u
   Each card has at most one line of status, shown only when there is something to say; its ⓘ opens a small
   sheet with the explanation. A speed the bike confirmed shows on its box alone (green, with a ✓; screen
   readers hear the box when it turns confirmed), with a line under it only on an untested model, for a speed
-  other than 25, which says the speed may not reset. The cards keep their place whatever the connection:
-  while the bike isn't connected their controls are greyed out and disabled, and the bike's state at the top
-  says why (screen readers hear it when it changes).
+  other than 25, which says the speed may not reset. A confirmed assist level shows on the bar and in the
+  heading, which screen readers hear when the confirmation comes. The cards keep their place whatever the
+  connection: while the bike isn't connected their controls are greyed out and disabled, and the bike's state
+  at the top says why (screen readers hear it when it changes).
 - **Names**: the home screen shows "Speed Tool" under the icon, and the dashboard's top bar shows the same
   short name; everywhere else the app is "ENGWE Speed Tool (Unofficial)".
 - **Icons**: Material Symbols (Rounded, by Google, Apache License 2.0) as vector drawables in

@@ -75,6 +75,8 @@ internal fun AssistCard(
     val level = state.level?.takeIf { connected }
     val levels = state.levels ?: PLACEHOLDER_LEVELS.takeIf { !checked }
     AssistHaptics(state)
+    // No line says it: the heading ("Assist 3 of 5") is read out when the bike has just confirmed a level.
+    val announce = isNewConfirmation(state.confirmed?.takeIf { connected }?.let { it to state.reapply })
     DashboardCard {
         val spoken =
             when {
@@ -88,6 +90,7 @@ internal fun AssistCard(
                     Modifier.weight(1f).clearAndSetSemantics {
                         contentDescription = spoken
                         heading()
+                        if (announce) liveRegion = LiveRegionMode.Polite
                     },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(Spacing.s),
@@ -259,7 +262,10 @@ internal fun segmentFilled(
     level: Int?,
 ): Boolean = level != null && segment <= level
 
-/** The card's one line about the last level the app sent, when there is anything to say. */
+/**
+ * The card's one line about the last level the app sent, when there is news: being sent, not confirmed or not
+ * sent. A level the bike confirmed needs no line: the bar and the heading show it.
+ */
 @Composable
 private fun AssistStatus(state: AssistUiState?) {
     val line =
@@ -292,17 +298,6 @@ private fun AssistStatus(state: AssistUiState?) {
 
             state.notConfirmed != null -> {
                 stringResource(R.string.assist_status_not_confirmed, state.notConfirmed)
-            }
-
-            state.confirmed != null -> {
-                stringResource(
-                    when (state.reapply) {
-                        Reapply.RESTART -> R.string.assist_status_reapplied_restart
-                        Reapply.RECONNECT -> R.string.assist_status_reapplied
-                        null -> R.string.assist_status_confirmed
-                    },
-                    state.confirmed,
-                )
             }
 
             else -> {
