@@ -137,6 +137,10 @@ class SpeedAnnouncementTest {
             listOf(text(R.string.speed_status_confirmed_unverified_spoken, 32, 25)),
             caveat.fetchSemanticsNode().config.getOrNull(SemanticsProperties.ContentDescription),
         )
+        // A tap that wasn't sent says so instead, read as it is shown.
+        change(current.copy(speedLimit = current.speedLimit.copy(notSent = SpeedNotSent(16, NotSent.BUSY))))
+        val notSent = screen.compose.onNode(hasText(text(R.string.speed_not_sent_busy, 16))).fetchSemanticsNode()
+        assertEquals(null, notSent.config.getOrNull(SemanticsProperties.ContentDescription))
         // Not confirmed keeps its help.
         change(state(status = SpeedLimitStatus.NotConfirmed(32)))
         screen.compose.onNode(hasText(text(R.string.speed_not_confirmed_help))).assertExists()

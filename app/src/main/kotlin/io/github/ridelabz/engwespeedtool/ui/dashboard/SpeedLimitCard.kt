@@ -3,7 +3,6 @@ package io.github.ridelabz.engwespeedtool.ui.dashboard
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -90,9 +89,9 @@ fun SpeedLimitCard(
             onInfo = onInfo,
             infoLabel = R.string.speed_info,
         )
-        // The boxes and their line, without the card's spacing: an empty line takes almost no room. The card grows
-        // and shrinks smoothly as a line comes and goes ("Sending…" only for a moment), so what is below doesn't jump.
-        Column(modifier = Modifier.animateContentSize()) {
+        // The boxes and their line, without the card's spacing: an empty line takes almost no room. No size
+        // animation: it would clip a new line out at first, and screen readers would never hear it.
+        Column {
             SpeedChoices(state, verified, connected, onSpeed)
             StatusText(
                 status,
