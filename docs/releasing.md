@@ -84,10 +84,13 @@ Publish it in the README ("Install"), so users can check what they install.
    `CHANGELOG.md` (a placeholder there means the section is missing: fix it before publishing). Then
    publish.
 
-Obtainium (README, "Updates") offers its users each published release that isn't a pre-release. So keep
-exactly one APK per release, never publish a test or candidate build as a normal release (mark it as a
-pre-release), and don't change the assets or the tag of a published release.
-
 A failed run creates no release. Fix the cause in a pull request, then delete the tag (`git push origin
 :v1.2.3` and `git tag -d v1.2.3`; with the ruleset, a maintainer allowed to delete tags does this) and
 tag again.
+
+## Keeping updates working
+
+With its default options, Obtainium (README, "Updates") offers its users the most recently published
+release that isn't a pre-release, and takes the version from its tag. So keep exactly one APK per release,
+publish releases in version order, and don't change the assets or the tag of a published release. Test and
+candidate builds don't go on the Releases page.

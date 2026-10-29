@@ -78,24 +78,26 @@ it: its "certificate SHA-256 digest" must be this one.
 
 ## Updates
 
-The app doesn't check for updates itself: it has no internet access. To be told about new versions, add
-the project to [Obtainium](https://github.com/ImranR98/Obtainium), a separate open-source app: tap
-**Add app**, paste `https://github.com/ridelabz/engwe-speed-tool` and keep the default options. Obtainium
-checks this project's Releases page and offers each new version. Android installs an update only if it is
-signed with the same release key as the app you have.
+The app doesn't check for updates itself: it has no internet access. To get new versions, add the project
+to [Obtainium](https://github.com/ImranR98/Obtainium), a separate open-source app: tap **Add app**, paste
+`https://github.com/ridelabz/engwe-speed-tool` into **App source URL**, keep the default options and tap
+**Add**. Obtainium checks this project's Releases page and offers each new version. It doesn't check an APK
+against `SHA256SUMS` or the fingerprint above, so check the first one yourself as described in "Install".
+After that, Android accepts an update only if it is signed with the same key as the app already on your
+phone, so no one else's build can replace it.
 
-Without Obtainium: with a GitHub account, choose **Watch → Custom → Releases** on the repository's page, and
-GitHub tells you about each release; or follow the
-[releases feed](https://github.com/ridelabz/engwe-speed-tool/releases.atom) in a feed reader. What changed
-in each release: [CHANGELOG.md](CHANGELOG.md).
+Without Obtainium: if you have a GitHub account, open the repository's page and choose **Watch → Custom →
+Releases → Apply**; GitHub then tells you about each new release. Or follow the
+[releases feed](https://github.com/ridelabz/engwe-speed-tool/releases.atom) in a feed reader. Install each
+new version as described in "Install". What changed in each release: [CHANGELOG.md](CHANGELOG.md).
 
 ## Test builds
 
-Every pull request gets a **test build**: a bot comments with its download link and checksum. Test builds
-install next to the release app (their own app ID), show a permanent "TEST BUILD · PR #n · not reviewed"
-banner and are signed with a public test key. **They are not reviewed:** install one only if you trust the
-change. Changes to protected parts (the bike communication, the safety text, the build) get their test
-build only after a maintainer's review.
+Every pull request into `main` gets a **test build** once its checks pass: a bot comments with its download
+link and checksum. Test builds install next to the release app (their own app ID), show a permanent "TEST
+BUILD · PR #n · not reviewed" banner and are signed with a public test key. **They are not reviewed:**
+install one only if you trust the change. Changes to protected parts (the bike communication, the safety
+text, the build) get their test build only after a maintainer's review.
 
 ## Help verify your bike
 
