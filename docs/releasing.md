@@ -91,6 +91,6 @@ tag again.
 ## Keeping updates working
 
 With its default options, Obtainium (README, "Updates") offers its users the most recently published
-release that isn't a pre-release, and takes the version from its tag. So keep exactly one APK per release,
-publish releases in version order, and don't change the assets or the tag of a published release. Test and
-candidate builds don't go on the Releases page.
+release that isn't a pre-release, and takes the version from the release's tag. So keep exactly one APK
+per release, publish releases in version order, and don't change the assets or the tag of a published
+release. Test and candidate builds don't go on the Releases page.

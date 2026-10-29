@@ -79,12 +79,12 @@ it: its "certificate SHA-256 digest" must be this one.
 ## Updates
 
 The app doesn't check for updates itself: it has no internet access. To get new versions, add the project
-to [Obtainium](https://github.com/ImranR98/Obtainium), a separate open-source app: tap **Add app**, paste
-`https://github.com/ridelabz/engwe-speed-tool` into **App source URL**, keep the default options and tap
-**Add**. Obtainium checks this project's Releases page and offers each new version. It doesn't check an APK
-against `SHA256SUMS` or the fingerprint above, so check the first one yourself as described in "Install".
-After that, Android accepts an update only if it is signed with the same key as the app already on your
-phone, so no one else's build can replace it.
+to [Obtainium](https://github.com/ImranR98/Obtainium) (1.6.16 or later), a separate open-source app: tap
+**Add app**, paste `https://github.com/ridelabz/engwe-speed-tool` into **App source URL** and the
+fingerprint above into **Expected signing certificate hashes**, leave the other options as they are and tap
+**Add**. Obtainium then checks this project's Releases page, offers each new version and installs only an
+APK signed with the project's release key, the first one included. Android, too, accepts an update only if
+it is signed with the same key as the app already on your phone.
 
 Without Obtainium: if you have a GitHub account, open the repository's page and choose **Watch → Custom →
 Releases → Apply**; GitHub then tells you about each new release. Or follow the
