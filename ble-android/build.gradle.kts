@@ -24,6 +24,11 @@ android {
                 "--add-opens=java.base/java.util=ALL-UNNAMED",
                 "--add-opens=java.base/java.io=ALL-UNNAMED",
             )
+            // A failure says why in the build's output (CI keeps no test reports), as in the other modules.
+            test.testLogging {
+                events("failed")
+                exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+            }
         }
     }
 }
