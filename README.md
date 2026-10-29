@@ -76,11 +76,26 @@ release key, whose certificate's SHA-256 fingerprint is:
 Check an APK with `apksigner verify --print-certs` (part of the Android SDK build tools) before installing
 it: its "certificate SHA-256 digest" must be this one.
 
-Every pull request also gets a **test build**: a bot comments with its download link and checksum. Test
-builds install next to the release app (their own app ID), show a permanent "TEST BUILD · PR #n · not
-reviewed" banner and are signed with a public test key. **They are not reviewed:** install one only if you
-trust the change. Changes to protected parts (the bike communication, the safety text, the build) get their
-test build only after a maintainer's review.
+## Updates
+
+The app doesn't check for updates itself: it has no internet access. To be told about new versions, add
+the project to [Obtainium](https://github.com/ImranR98/Obtainium), a separate open-source app: tap
+**Add app**, paste `https://github.com/ridelabz/engwe-speed-tool` and keep the default options. Obtainium
+checks this project's Releases page and offers each new version. Android installs an update only if it is
+signed with the same release key as the app you have.
+
+Without Obtainium: with a GitHub account, choose **Watch → Custom → Releases** on the repository's page, and
+GitHub tells you about each release; or follow the
+[releases feed](https://github.com/ridelabz/engwe-speed-tool/releases.atom) in a feed reader. What changed
+in each release: [CHANGELOG.md](CHANGELOG.md).
+
+## Test builds
+
+Every pull request gets a **test build**: a bot comments with its download link and checksum. Test builds
+install next to the release app (their own app ID), show a permanent "TEST BUILD · PR #n · not reviewed"
+banner and are signed with a public test key. **They are not reviewed:** install one only if you trust the
+change. Changes to protected parts (the bike communication, the safety text, the build) get their test
+build only after a maintainer's review.
 
 ## Help verify your bike
 
