@@ -8,11 +8,6 @@ Bluetooth protocol (verified on the E26 3.0 Pro), and shows the bike's readings.
 
 **Status:** 1.0.0 is the first release: [Releases](https://github.com/ridelabz/engwe-speed-tool/releases).
 
-<p align="center">
-  <img src="docs/images/dashboard-light.png" width="300" alt="The app's dashboard in the light theme, connected to an E26 3.0 Pro: the bike on and verified, its battery at 78 %, 32 km/h set and confirmed by the bike, assist level 3 of 5, lights on, and the bike's readings">
-  <img src="docs/images/dashboard-dark.png" width="300" alt="The same dashboard in the dark theme">
-</p>
-
 ## Legal & safety
 
 In the EU and many other countries, an e-bike must stop assisting at 25 km/h; above that, it may legally be
@@ -27,6 +22,11 @@ On our ENGWE E26 3.0 Pro, the display offered a choice between 25 and 32 km/h. A
 update **218CAN**, that choice was gone, and the alternatives we found were paid or closed. This project
 documents the bike's Bluetooth protocol from its own observations ([PROTOCOL.md](PROTOCOL.md)) and offers a
 free, open, community-maintained app.
+
+<p align="center">
+  <img src="docs/images/dashboard-light.png" width="300" alt="The app's dashboard in the light theme, connected to an E26 3.0 Pro: the bike on and verified, its battery at 78 %, 32 km/h set and confirmed by the bike, assist level 3 of 5, lights on, and the bike's readings">
+  <img src="docs/images/dashboard-dark.png" width="300" alt="The dashboard in the dark theme, with the same bike and readings, before the app has set a speed on this connection, so no speed is marked">
+</p>
 
 ## What it does
 
